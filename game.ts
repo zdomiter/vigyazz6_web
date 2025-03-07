@@ -66,24 +66,7 @@ function updateIndexPlayerList() {
 
         card.appendChild(cardBody);
         container.appendChild(card);
-
-        // Korábbi körök pontjai badge-ekben
-        if (player.previousRounds && player.previousRounds.length > 0) {
-            const previousRoundsDiv = document.createElement("div");
-            previousRoundsDiv.classList.add("mt-2");
-
-            player.previousRounds.forEach((roundPoints) => {
-                const badge = document.createElement("span");
-                badge.classList.add("badge", "bg-secondary", "me-1");
-                badge.textContent = roundPoints.toString();
-                previousRoundsDiv.appendChild(badge);
-            });
-
-            cardBody.appendChild(previousRoundsDiv);
-        }
-
-        card.appendChild(cardBody);
-        container.appendChild(card);
+        
     });
 }
 
