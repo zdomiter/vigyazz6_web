@@ -9,23 +9,20 @@ function updateIndexPlayerList() {
     const container = document.getElementById("players-container");
     if (!container) return;
 
-    // Gomb létrehozása az új kör indítására
-    const newRoundButton = document.createElement("button");
-    newRoundButton.textContent = "Új kör";
-    newRoundButton.classList.add("btn", "btn-primary", "mb-3");
-    newRoundButton.onclick = startNewRound; // Gomb eseménykezelője
-    container.appendChild(newRoundButton);
 
     // 1. Játékosok rendezése pontszám szerint
     players.sort((a, b) => b.points - a.points);
 
-    let rank = 1;
-    let prevPoints = null;
-    let displayedRank = 0;
+    let prevPoints: number | null = null;
+    let displayedRank: number = 0;
 
 
-    container.innerHTML = "";
     players.forEach((player, index) => {
+        if (player.points !== prevPoints) {
+            displayedRank++;
+        }
+        prevPoints = player.points;
+
         const card = document.createElement("div");
         card.classList.add("card", "mb-3", "w-100");
 
@@ -37,7 +34,7 @@ function updateIndexPlayerList() {
 
         const rankDiv = document.createElement("div");
         rankDiv.classList.add("col-2", "fw-bold");
-        rankDiv.textContent = `${index + 1}.`;
+        rankDiv.textContent = `${displayedRank}.`;
 
         const nameDiv = document.createElement("div");
         nameDiv.classList.add("col-6");
@@ -51,6 +48,24 @@ function updateIndexPlayerList() {
         row.appendChild(nameDiv);
         row.appendChild(pointsDiv);
         cardBody.appendChild(row);
+
+        // Korábbi körök pontjai badge-ekben
+        if (player.previousRounds && player.previousRounds.length > 0) {
+            const previousRoundsDiv = document.createElement("div");
+            previousRoundsDiv.classList.add("mt-2");
+
+            player.previousRounds.forEach((roundPoints) => {
+                const badge = document.createElement("span");
+                badge.classList.add("badge", "bg-secondary", "me-1");
+                badge.textContent = roundPoints.toString();
+                previousRoundsDiv.appendChild(badge);
+            });
+
+            cardBody.appendChild(previousRoundsDiv);
+        }
+
+        card.appendChild(cardBody);
+        container.appendChild(card);
 
         // Korábbi körök pontjai badge-ekben
         if (player.previousRounds && player.previousRounds.length > 0) {
@@ -83,6 +98,18 @@ function deductPoints(index: number, points: number): void {
 
 // ✅ Betöltéskor frissítés
 document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("players-container");
+    if (!container) return;
+
+    // Új kör gomb LÉTREHOZÁSA csak EGYSZER
+    const newRoundButton = document.createElement("button");
+    newRoundButton.textContent = "Új kör";
+    newRoundButton.classList.add("btn", "btn-primary", "mb-3");
+    newRoundButton.onclick = startNewRound;
+
+    // Gomb hozzáadása a DOM-hoz
+    container.before(newRoundButton);
+
     updateIndexPlayerList();
 });
 function startNewRound() {
@@ -94,11 +121,7 @@ function startNewRound() {
         if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
             players[index].deductPoints(pointsToDeduct);
 
-            // Hozzáadjuk a kör pontszámát a korábbi körökhöz
-            if (!players[index].previousRounds) {
-                players[index].previousRounds = [];
-            }
-            players[index].previousRounds.push(pointsToDeduct);
+
         }
     });
 

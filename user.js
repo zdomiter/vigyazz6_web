@@ -8,39 +8,29 @@ var User = /** @class */ (function () {
         this._points = points;
         this._previousRounds = [];
     }
-    Object.defineProperty(User.prototype, "name", {
-        get: function () {
-            return this._name;
-        },
-        set: function (newName) {
-            this._name = newName;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(User.prototype, "points", {
-        get: function () {
-            return this._points;
-        },
-        set: function (newPoints) {
-            this._points = newPoints;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(User.prototype, "previousRounds", {
-        get: function () {
-            return this._previousRounds;
-        },
-        set: function (newPoints) {
-            this._previousRounds = newPoints;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    User.prototype.deductPoints = function (pointsToDeduct) {
-        this._points -= pointsToDeduct;
-    };
-    return User;
-}());
-exports.User = User;
+
+    get name() {
+        return this._name;
+    }
+    set name(newName) {
+        this._name = newName;
+    }
+    get points() {
+        return this._points;
+    }
+    set points(newPoints) {
+        this._points = newPoints;
+    }
+    get previousRounds() {
+        return this._previousRounds;
+    }
+    set previousRounds(newPoints) {
+        this._previousRounds = newPoints;
+    }
+    deductPoints(points) {
+        this._points -= points;
+        this._previousRounds.push(points);
+    }
+}
+
+ 

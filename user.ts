@@ -27,13 +27,19 @@ export class User {
 
     get previousRounds(): number[] {
         return this._previousRounds;
+
     }
 
     set previousRounds(newPoints: number[]) {
         this._previousRounds = newPoints;
     }
 
-    deductPoints(pointsToDeduct: number): void {
-        this._points -= pointsToDeduct;
+    deductPoints(points: number): void {
+        this._points -= points;
+        this._previousRounds.push(points); 
     }
+
+   /* addPreviousRound(points: number): void {
+        this._previousRounds.push(points);
+    }*/
 }
