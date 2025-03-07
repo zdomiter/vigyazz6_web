@@ -8,7 +8,7 @@ let players: User[] = loadPlayersFromLocalStorage();
 function updateIndexPlayerList() {
     const container = document.getElementById("players-container");
     if (!container) return;
-    container.innerHTML = "";
+
 
     // 1. Játékosok rendezése pontszám szerint
     players.sort((a, b) => b.points - a.points);
@@ -16,7 +16,7 @@ function updateIndexPlayerList() {
     let prevPoints: number | null = null;
     let displayedRank: number = 0;
 
-    
+
     players.forEach((player, index) => {
         if (player.points !== prevPoints) {
             displayedRank++;
@@ -48,6 +48,22 @@ function updateIndexPlayerList() {
         row.appendChild(nameDiv);
         row.appendChild(pointsDiv);
         cardBody.appendChild(row);
+
+        // Korábbi körök pontjai badge-ekben
+        if (player.previousRounds && player.previousRounds.length > 0) {
+            const previousRoundsDiv = document.createElement("div");
+            previousRoundsDiv.classList.add("mt-2");
+
+            player.previousRounds.forEach((roundPoints) => {
+                const badge = document.createElement("span");
+                badge.classList.add("badge", "bg-secondary", "me-1");
+                badge.textContent = roundPoints.toString();
+                previousRoundsDiv.appendChild(badge);
+            });
+
+            cardBody.appendChild(previousRoundsDiv);
+        }
+
         card.appendChild(cardBody);
         container.appendChild(card);
 
@@ -104,6 +120,7 @@ function startNewRound() {
         const pointsToDeduct = parseInt(input, 10);
         if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
             players[index].deductPoints(pointsToDeduct);
+
 
         }
     });
