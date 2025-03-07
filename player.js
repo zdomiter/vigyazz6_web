@@ -51,7 +51,7 @@ function deletePlayer(index) {
 document.addEventListener("DOMContentLoaded", () => {
     updatePlayerList();
     const form = document.getElementById("player-form");
-    form === null || form === void 0 ? void 0 : form.addEventListener("submit", (event) => {
+    form?.addEventListener("submit", (event) => {
         event.preventDefault();
         const input = document.getElementById("new-player");
         if (input.value.trim() !== "") {

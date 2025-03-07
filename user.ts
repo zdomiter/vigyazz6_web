@@ -1,10 +1,12 @@
 export class User {
     private _name: string;
     private _points: number;
+    private _previousRounds: number[]
 
     constructor(name: string, points: number = 66) {
         this._name = name;
         this._points = points;
+        this._previousRounds = [];
     }
 
     get name(): string {
@@ -21,6 +23,14 @@ export class User {
 
     set points(newPoints: number) {
         this._points = newPoints;
+    }
+
+    get previousRounds(): number[] {
+        return this._previousRounds;
+    }
+
+    set previousRounds(newPoints: number[]) {
+        this._previousRounds = newPoints;
     }
 
     deductPoints(pointsToDeduct: number): void {
