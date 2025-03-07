@@ -2,6 +2,7 @@ export class User {
     constructor(name, points = 66) {
         this._name = name;
         this._points = points;
+        this._previousRounds = [];
     }
     get name() {
         return this._name;
@@ -15,7 +16,14 @@ export class User {
     set points(newPoints) {
         this._points = newPoints;
     }
-    deductPoints(pointsToDeduct) {
-        this._points -= pointsToDeduct;
+    get previousRounds() {
+        return this._previousRounds;
+    }
+    set previousRounds(newPoints) {
+        this._previousRounds = newPoints;
+    }
+    deductPoints(points) {
+        this._points -= points;
+        this._previousRounds.push(points);
     }
 }
