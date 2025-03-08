@@ -27,7 +27,6 @@ export class User {
 
     get previousRounds(): number[] {
         return this._previousRounds;
-
     }
 
     set previousRounds(newPoints: number[]) {

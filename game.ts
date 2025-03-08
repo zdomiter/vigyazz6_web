@@ -8,7 +8,7 @@ let players: User[] = loadPlayersFromLocalStorage();
 function updateIndexPlayerList() {
     const container = document.getElementById("players-container");
     if (!container) return;
-
+    container.innerHTML = "";
 
     // 1. Játékosok rendezése pontszám szerint
     players.sort((a, b) => b.points - a.points);
@@ -16,7 +16,7 @@ function updateIndexPlayerList() {
     let prevPoints: number | null = null;
     let displayedRank: number = 0;
 
-
+    
     players.forEach((player, index) => {
         if (player.points !== prevPoints) {
             displayedRank++;
@@ -25,6 +25,10 @@ function updateIndexPlayerList() {
 
         const card = document.createElement("div");
         card.classList.add("card", "mb-3", "w-100");
+
+        if (displayedRank === 1) {
+            card.id = "win";
+        }
 
         const cardBody = document.createElement("div");
         cardBody.classList.add("card-body");
@@ -48,6 +52,8 @@ function updateIndexPlayerList() {
         row.appendChild(nameDiv);
         row.appendChild(pointsDiv);
         cardBody.appendChild(row);
+        card.appendChild(cardBody);
+        container.appendChild(card);
 
         // Korábbi körök pontjai badge-ekben
         if (player.previousRounds && player.previousRounds.length > 0) {
@@ -66,8 +72,9 @@ function updateIndexPlayerList() {
 
         card.appendChild(cardBody);
         container.appendChild(card);
-        
     });
+
+    checkGameOver();
 }
 
 
@@ -104,13 +111,38 @@ function startNewRound() {
         if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
             players[index].deductPoints(pointsToDeduct);
 
-
         }
     });
 
     savePlayersToLocalStorage(players);
     updateIndexPlayerList();
 }
+
+function checkGameOver() {
+    const newRoundButton = document.getElementById("button") as HTMLButtonElement;
+    
+    // Van-e olyan játékos, akinek 0 vagy kevesebb pontja van?
+    const hasLoser = players.some(player => player.points <= 0);
+
+    if (hasLoser) {
+        // Kiemeljük a győztest (aki "win" ID-t kapott)
+        document.querySelectorAll("#win").forEach((card) => {
+            (card as HTMLElement).classList.add("bg-danger", "text-white");
+        });
+
+        // Az "Új kör" gomb elrejtése
+        if (newRoundButton) {
+            newRoundButton.style.display = "none";
+        }
+    } else {
+        // Ha nincs vesztes, az "Új kör" gomb maradjon látható
+        if (newRoundButton) {
+            newRoundButton.style.display = "block";
+        }
+    }
+}
+
+
 
 
 

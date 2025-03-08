@@ -1,25 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var storage_js_1 = require("./storage.js");
-var players = (0, storage_js_1.loadPlayersFromLocalStorage)();
+import { loadPlayersFromLocalStorage, savePlayersToLocalStorage } from "./storage.js";
+let players = loadPlayersFromLocalStorage();
 // ✅ Játékos állás frissítése
 function updateIndexPlayerList() {
-    var container = document.getElementById("players-container");
+    const container = document.getElementById("players-container");
     if (!container)
         return;
-    // Gomb létrehozása az új kör indítására
-    var newRoundButton = document.createElement("button");
-    newRoundButton.textContent = "Új kör";
-    newRoundButton.classList.add("btn", "btn-primary", "mb-3");
-    newRoundButton.onclick = startNewRound; // Gomb eseménykezelője
-    container.appendChild(newRoundButton);
-    // 1. Játékosok rendezése pontszám szerint
-    players.sort(function (a, b) { return b.points - a.points; });
-    var rank = 1;
-    var prevPoints = null;
-    var displayedRank = 0;
     container.innerHTML = "";
-
     // 1. Játékosok rendezése pontszám szerint
     players.sort((a, b) => b.points - a.points);
     let prevPoints = null;
@@ -30,39 +16,27 @@ function updateIndexPlayerList() {
         }
         prevPoints = player.points;
         const card = document.createElement("div");
-
         card.classList.add("card", "mb-3", "w-100");
-        var cardBody = document.createElement("div");
+        if (displayedRank === 1) {
+            card.id = "win";
+        }
+        const cardBody = document.createElement("div");
         cardBody.classList.add("card-body");
-        var row = document.createElement("div");
+        const row = document.createElement("div");
         row.classList.add("row", "align-items-center");
-        var rankDiv = document.createElement("div");
+        const rankDiv = document.createElement("div");
         rankDiv.classList.add("col-2", "fw-bold");
-
         rankDiv.textContent = `${displayedRank}.`;
         const nameDiv = document.createElement("div");
-
         nameDiv.classList.add("col-6");
         nameDiv.textContent = player.name;
-        var pointsDiv = document.createElement("div");
+        const pointsDiv = document.createElement("div");
         pointsDiv.classList.add("col-4", "text-end", "fw-bold");
-        pointsDiv.textContent = "".concat(player.points, " pont");
+        pointsDiv.textContent = `${player.points} pont`;
         row.appendChild(rankDiv);
         row.appendChild(nameDiv);
         row.appendChild(pointsDiv);
         cardBody.appendChild(row);
-        // Korábbi körök pontjai badge-ekben
-        if (player.previousRounds && player.previousRounds.length > 0) {
-            var previousRoundsDiv_1 = document.createElement("div");
-            previousRoundsDiv_1.classList.add("mt-2");
-            player.previousRounds.forEach(function (roundPoints) {
-                var badge = document.createElement("span");
-                badge.classList.add("badge", "bg-secondary", "me-1");
-                badge.textContent = roundPoints.toString();
-                previousRoundsDiv_1.appendChild(badge);
-            });
-            cardBody.appendChild(previousRoundsDiv_1);
-        }
         card.appendChild(cardBody);
         container.appendChild(card);
         // Korábbi körök pontjai badge-ekben
@@ -80,15 +54,15 @@ function updateIndexPlayerList() {
         card.appendChild(cardBody);
         container.appendChild(card);
     });
+    checkGameOver();
 }
 // ✅ Pontlevonás egy játékostól
 function deductPoints(index, points) {
     players[index].deductPoints(points);
-    (0, storage_js_1.savePlayersToLocalStorage)(players);
+    savePlayersToLocalStorage(players);
     updateIndexPlayerList();
 }
 // ✅ Betöltéskor frissítés
-
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("players-container");
     if (!container)
@@ -113,6 +87,26 @@ function startNewRound() {
         }
     });
     savePlayersToLocalStorage(players);
-
     updateIndexPlayerList();
+}
+function checkGameOver() {
+    const newRoundButton = document.getElementById("button");
+    // Van-e olyan játékos, akinek 0 vagy kevesebb pontja van?
+    const hasLoser = players.some(player => player.points <= 0);
+    if (hasLoser) {
+        // Kiemeljük a győztest (aki "win" ID-t kapott)
+        document.querySelectorAll("#win").forEach((card) => {
+            card.classList.add("bg-danger", "text-white");
+        });
+        // Az "Új kör" gomb elrejtése
+        if (newRoundButton) {
+            newRoundButton.style.display = "none";
+        }
+    }
+    else {
+        // Ha nincs vesztes, az "Új kör" gomb maradjon látható
+        if (newRoundButton) {
+            newRoundButton.style.display = "block";
+        }
+    }
 }
