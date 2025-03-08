@@ -10,18 +10,12 @@ function updatePlayerList() {
     players.forEach((player, index) => {
         const li = document.createElement("li");
         li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
-        li.textContent = `${player.name} - ${player.points} pont`;
-        // Szerkesztés gomb
-        const editButton = document.createElement("button");
-        editButton.innerHTML = '<i class="bi bi-pencil"></i>';
-        editButton.classList.add("btn", "btn-sm", "btn-warning");
-        editButton.onclick = () => editPlayer(index);
+        li.textContent = `${player.name}`;
         // Törlés gomb
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
         deleteButton.classList.add("btn", "btn-sm", "btn-danger");
         deleteButton.onclick = () => deletePlayer(index);
-        li.appendChild(editButton);
         li.appendChild(deleteButton);
         playerList.appendChild(li);
     });
@@ -31,15 +25,6 @@ function addPlayer(name) {
     players.push(new User(name));
     savePlayersToLocalStorage(players);
     updatePlayerList();
-}
-// ✅ Játékos szerkesztése
-function editPlayer(index) {
-    const newName = prompt("Új név megadása:", players[index].name);
-    if (newName) {
-        players[index].name = newName;
-        savePlayersToLocalStorage(players);
-        updatePlayerList();
-    }
 }
 // ✅ Játékos törlése
 function deletePlayer(index) {
@@ -51,7 +36,7 @@ function deletePlayer(index) {
 document.addEventListener("DOMContentLoaded", () => {
     updatePlayerList();
     const form = document.getElementById("player-form");
-    form?.addEventListener("submit", (event) => {
+    form === null || form === void 0 ? void 0 : form.addEventListener("submit", (event) => {
         event.preventDefault();
         const input = document.getElementById("new-player");
         if (input.value.trim() !== "") {
@@ -60,3 +45,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+function createStartButton() {
+    const container = document.getElementById("button-container");
+    if (!container)
+        return;
+    if (players.length < 2) {
+        container.innerHTML = ""; // Ha kevesebb mint 2 játékos van, ne jelenjen meg gomb
+        return;
+    }
+    // Gomb létrehozása
+    const startButton = document.createElement("button");
+    startButton.id = "start-game";
+    startButton.textContent = "Játék indítása";
+    startButton.classList.add("btn", "btn-success", "mt-3", "d-block", "mx-auto");
+    // Eseménykezelő hozzáadása
+    startButton.addEventListener("click", () => {
+        players.forEach(player => {
+            player.points = 66; // Pontok inicializálása
+        });
+        savePlayersToLocalStorage(players); // Játékosok mentése
+        window.location.href = "index.html"; // Átirányítás
+    });
+    // Gomb hozzáadása az oldalhoz
+    container.innerHTML = ""; // Előző gomb törlése, ha volt
+    container.appendChild(startButton);
+}
+// Betöltéskor ellenőrzés
+document.addEventListener("DOMContentLoaded", createStartButton);

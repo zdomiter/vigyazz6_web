@@ -5,21 +5,17 @@
 #players-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
 }
 
-.player-card {
-    width:10%;
+.card {
     padding: 4px;
-    margin-bottom: 6px;
     background-color: #e6e332;
-    text-align: center;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .card-body {
-    padding: 6px 10px;
+    padding: 2px 10px;
 }
 
 .badge {
