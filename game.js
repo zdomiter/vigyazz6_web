@@ -73,7 +73,16 @@ document.addEventListener("DOMContentLoaded", () => {
     newRoundButton.classList.add("btn", "btn-primary", "mb-3");
     newRoundButton.onclick = startNewRound;
     // Gomb hozzáadása a DOM-hoz
-    container.before(newRoundButton);
+    if (players.length >= 2) {
+        container.before(newRoundButton);
+    }
+    else {
+        //Ezt javítani kell
+        /*container.before("<h2>Üdvözöllek! Ez a Vigyázz6-os játék segédje.</h2>"
+            + "<p>A játékhoz legalább két játékosra lesz szükség.</p>"
+            + "<a href=player.html>Tovább a játékhoz</a>"
+        );*/
+    }
     updateIndexPlayerList();
 });
 function startNewRound() {
