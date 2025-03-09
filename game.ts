@@ -98,17 +98,21 @@ document.addEventListener("DOMContentLoaded", () => {
     newRoundButton.onclick = startNewRound;
 
     // Gomb hozzáadása a DOM-hoz
-    if (players.length >= 2) {
-        container.before(newRoundButton);
-    }else {
+if (players.length >= 2) {
+    container.before(newRoundButton);
+} else if (players.length === 0) {
+    // Üzenet létrehozása és Bootstrap-stílus alkalmazása
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
 
-        //Ezt javítani kell
-        /*container.before("<h2>Üdvözöllek! Ez a Vigyázz6-os játék segédje.</h2>"
-            + "<p>A játékhoz legalább két játékosra lesz szükség.</p>"
-            + "<a href=player.html>Tovább a játékhoz</a>"
-        );*/
-    }
-
+    messageDiv.innerHTML = `
+        <h2 class="mb-3">Üdvözöllek! Ez a Vigyáz(z)6! játék segédje.</h2>
+        <p class="mb-3">A játékhoz legalább két játékosra lesz szükség.</p>
+        <a href="player.html" class="btn btn-primary">Tovább a játékosokhoz</a>
+    `;
+    
+    container.before(messageDiv);
+}
     updateIndexPlayerList();
 });
 function startNewRound() {
