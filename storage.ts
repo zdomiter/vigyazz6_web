@@ -7,7 +7,7 @@ export function savePlayersToLocalStorage(players: User[]): void {
 export function loadPlayersFromLocalStorage(): User[] {
     const storedPlayers = localStorage.getItem("players");
     if (storedPlayers) {
-        return JSON.parse(storedPlayers).map((p: any) => new User(p._name, p._points));
+        return JSON.parse(storedPlayers).map((p: any) => new User(p._name, p._points, p._previousRounds));
     }
     return [];
 }

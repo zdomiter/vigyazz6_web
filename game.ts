@@ -1,5 +1,6 @@
 import { User } from "./user.js";
 import { loadPlayersFromLocalStorage, savePlayersToLocalStorage } from "./storage.js";
+declare var bootstrap: any;
 
 let players: User[] = loadPlayersFromLocalStorage();
 
@@ -95,8 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const newRoundButton = document.createElement("button");
     newRoundButton.textContent = "Új kör";
     newRoundButton.classList.add("btn", "btn-primary", "mb-3");
-    newRoundButton.onclick = startNewRound;
-
+    newRoundButton.onclick = () => {
+        closeBootstrapMenuIfOpen(); // Menü bezárása
+        setTimeout(() => startNewRound(), 300);
+    };
     // Gomb hozzáadása a DOM-hoz
 if (players.length >= 2) {
     container.before(newRoundButton);
@@ -104,7 +107,6 @@ if (players.length >= 2) {
     // Üzenet létrehozása és Bootstrap-stílus alkalmazása
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
-
     messageDiv.innerHTML = `
         <h2 class="mb-3">Üdvözöllek! Ez a Vigyáz(z)6! játék segédje.</h2>
         <p class="mb-3">A játékhoz legalább két játékosra lesz szükség.</p>
@@ -116,20 +118,42 @@ if (players.length >= 2) {
     updateIndexPlayerList();
 });
 function startNewRound() {
-    players.forEach((player, index) => {
-        const input = prompt(`${player.name} hány pontot gyűjtött ebben a körben?`);
-        if (input === null) return; // Ha megszakítják a promptot, kilépünk
+    let currentIndex = 0;
 
-        const pointsToDeduct = parseInt(input, 10);
-        if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
-            players[index].deductPoints(pointsToDeduct);
-
+    function showModalForPlayer() {
+        if (currentIndex >= players.length) {
+            savePlayersToLocalStorage(players);
+            updateIndexPlayerList();
+            return;
         }
-    });
 
-    savePlayersToLocalStorage(players);
-    updateIndexPlayerList();
+        const player = players[currentIndex];
+        const playerPrompt = document.getElementById("playerPrompt")!;
+        const pointsInput = document.getElementById("pointsInput")! as HTMLInputElement;
+
+        playerPrompt.textContent = `${player.name} hány pontot gyűjtött ebben a körben?`;
+        pointsInput.value = ""; // Alapértelmezett érték törlése
+
+        const modal = new bootstrap.Modal(document.getElementById("pointsModal")!);
+        modal.show();
+
+        document.getElementById("savePoints")!.onclick = function () {
+            const pointsToDeduct = parseInt(pointsInput.value, 10);
+            if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
+                players[currentIndex].deductPoints(pointsToDeduct);
+                currentIndex++;
+                modal.hide();
+                updateIndexPlayerList();
+                showModalForPlayer(); // Következő játékos megjelenítése
+            } else {
+                alert("Érvényes számot adj meg!"); // Hibakezelés
+            }
+        };
+    }
+
+    showModalForPlayer();
 }
+
 
 function checkGameOver() {
     const newRoundButton = document.getElementById("button") as HTMLButtonElement;
@@ -155,8 +179,11 @@ function checkGameOver() {
     }
 }
 
-
-
-
-
+function closeBootstrapMenuIfOpen() {
+    const menu = document.querySelector(".navbar-collapse");
+    if (menu?.classList.contains("show")) {
+        const bsCollapse = new bootstrap.Collapse(menu, { toggle: false });
+        bsCollapse.hide();
+    }
+}
 

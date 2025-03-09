@@ -59,6 +59,7 @@ function createStartButton() {
     startButton.addEventListener("click", () => {
         players.forEach(player => {
             player.points = 66; // Pontok inicializálása
+            player.previousRounds = []; // Előző játékok inicializálása
         });
         savePlayersToLocalStorage(players); // Játékosok mentése
         window.location.href = "index.html"; // Átirányítás
