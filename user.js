@@ -1,8 +1,8 @@
 export class User {
-    constructor(name, points = 66) {
+    constructor(name, points = 66, previousRounds = []) {
         this._name = name;
         this._points = points;
-        this._previousRounds = [];
+        this._previousRounds = previousRounds;
     }
     get name() {
         return this._name;

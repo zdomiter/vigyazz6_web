@@ -3,10 +3,10 @@ export class User {
     private _points: number;
     private _previousRounds: number[]
 
-    constructor(name: string, points: number = 66) {
+    constructor(name: string, points: number = 66, previousRounds: number[] = []) {
         this._name = name;
         this._points = points;
-        this._previousRounds = [];
+        this._previousRounds = previousRounds;
     }
 
     get name(): string {
@@ -37,8 +37,4 @@ export class User {
         this._points -= points;
         this._previousRounds.push(points); 
     }
-
-   /* addPreviousRound(points: number): void {
-        this._previousRounds.push(points);
-    }*/
 }

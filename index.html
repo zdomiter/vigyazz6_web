@@ -28,7 +28,7 @@
                         <a class="nav-link" href="player.html">Játékosok</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="game_rules.html" >Játékszabály</a>
+                        <a class="nav-link" href="game_rules.html">Játékszabály</a>
                     </li>
                 </ul>
             </div>
@@ -38,7 +38,26 @@
     <div class="container-fluid pt-2">
         <div id="players-container"></div>
     </div>
- 
+    <!-- Pontbekérő Modal -->
+    <div class="modal fade" id="pointsModal" tabindex="-1" aria-labelledby="pointsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pointsModalLabel">Pontok bevitele</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="playerPrompt"></p>
+                    <input type="number" id="pointsInput" class="form-control" min="0" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégse</button>
+                    <button type="button" class="btn btn-primary" id="savePoints">Mentés</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <script type="module" src="game.js"></script>

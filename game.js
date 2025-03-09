@@ -71,7 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const newRoundButton = document.createElement("button");
     newRoundButton.textContent = "Új kör";
     newRoundButton.classList.add("btn", "btn-primary", "mb-3");
-    newRoundButton.onclick = startNewRound;
+    newRoundButton.onclick = () => {
+        closeBootstrapMenuIfOpen(); // Menü bezárása
+        setTimeout(() => startNewRound(), 300);
+    };
     // Gomb hozzáadása a DOM-hoz
     if (players.length >= 2) {
         container.before(newRoundButton);
@@ -90,17 +93,35 @@ document.addEventListener("DOMContentLoaded", () => {
     updateIndexPlayerList();
 });
 function startNewRound() {
-    players.forEach((player, index) => {
-        const input = prompt(`${player.name} hány pontot gyűjtött ebben a körben?`);
-        if (input === null)
-            return; // Ha megszakítják a promptot, kilépünk
-        const pointsToDeduct = parseInt(input, 10);
-        if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
-            players[index].deductPoints(pointsToDeduct);
+    let currentIndex = 0;
+    function showModalForPlayer() {
+        if (currentIndex >= players.length) {
+            savePlayersToLocalStorage(players);
+            updateIndexPlayerList();
+            return;
         }
-    });
-    savePlayersToLocalStorage(players);
-    updateIndexPlayerList();
+        const player = players[currentIndex];
+        const playerPrompt = document.getElementById("playerPrompt");
+        const pointsInput = document.getElementById("pointsInput");
+        playerPrompt.textContent = `${player.name} hány pontot gyűjtött ebben a körben?`;
+        pointsInput.value = ""; // Alapértelmezett érték törlése
+        const modal = new bootstrap.Modal(document.getElementById("pointsModal"));
+        modal.show();
+        document.getElementById("savePoints").onclick = function () {
+            const pointsToDeduct = parseInt(pointsInput.value, 10);
+            if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
+                players[currentIndex].deductPoints(pointsToDeduct);
+                currentIndex++;
+                modal.hide();
+                updateIndexPlayerList();
+                showModalForPlayer(); // Következő játékos megjelenítése
+            }
+            else {
+                alert("Érvényes számot adj meg!"); // Hibakezelés
+            }
+        };
+    }
+    showModalForPlayer();
 }
 function checkGameOver() {
     const newRoundButton = document.getElementById("button");
@@ -121,5 +142,12 @@ function checkGameOver() {
         if (newRoundButton) {
             newRoundButton.style.display = "block";
         }
+    }
+}
+function closeBootstrapMenuIfOpen() {
+    const menu = document.querySelector(".navbar-collapse");
+    if (menu === null || menu === void 0 ? void 0 : menu.classList.contains("show")) {
+        const bsCollapse = new bootstrap.Collapse(menu, { toggle: false });
+        bsCollapse.hide();
     }
 }
