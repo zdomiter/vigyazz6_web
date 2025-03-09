@@ -24,6 +24,7 @@ function updatePlayerList(): void {
         li.appendChild(deleteButton);
         playerList.appendChild(li);
     });
+    createStartButton();
 }
 
 // ✅ Új játékos hozzáadása
@@ -59,11 +60,6 @@ function createStartButton() {
     const container = document.getElementById("button-container");
     if (!container) return;
 
-    if (players.length < 2) {
-        container.innerHTML = ""; // Ha kevesebb mint 2 játékos van, ne jelenjen meg gomb
-        return;
-    }
-
     // Gomb létrehozása
     const startButton = document.createElement("button");
     startButton.id = "start-game";
@@ -81,8 +77,10 @@ function createStartButton() {
     });
 
     // Gomb hozzáadása az oldalhoz
-    container.innerHTML = ""; // Előző gomb törlése, ha volt
-    container.appendChild(startButton);
+    container.innerHTML = "";
+    if (players.length >= 2) {
+        container.appendChild(startButton);
+    }
 }
 
 // Betöltéskor ellenőrzés
