@@ -98,7 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
     newRoundButton.classList.add("btn", "btn-primary", "mb-3");
     newRoundButton.onclick = () => {
         closeBootstrapMenuIfOpen(); // Menü bezárása
-        setTimeout(() => startNewRound(), 300);
+        startNewRound();
+        //setTimeout(() => startNewRound(), 300);
     };
     // Gomb hozzáadása a DOM-hoz
 if (players.length >= 2) {
