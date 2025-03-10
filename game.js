@@ -73,7 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     newRoundButton.classList.add("btn", "btn-primary", "mb-3");
     newRoundButton.onclick = () => {
         closeBootstrapMenuIfOpen(); // Menü bezárása
-        setTimeout(() => startNewRound(), 300);
+        startNewRound();
+        //setTimeout(() => startNewRound(), 300);
     };
     // Gomb hozzáadása a DOM-hoz
     if (players.length >= 2) {
@@ -97,7 +98,7 @@ function startNewRound() {
     function showModalForPlayer() {
         if (currentIndex >= players.length) {
             savePlayersToLocalStorage(players);
-            //updateIndexPlayerList();
+            updateIndexPlayerList();
             return;
         }
         const player = players[currentIndex];
@@ -105,27 +106,40 @@ function startNewRound() {
         const pointsInput = document.getElementById("pointsInput");
         const saveButton = document.getElementById("savePoints");
         const modalElement = document.getElementById("pointsModal");
-        playerPrompt.textContent = `${player.name} hány pontot gyűjtött ebben a körben?`;
+        playerPrompt.innerHTML = `${player.name}`;
         pointsInput.value = ""; // Alapértelmezett érték törlése
         const modal = new bootstrap.Modal(modalElement);
         modal.show();
         // Fókusz automatikus beállítása a beviteli mezőre a modál megnyitásakor
         modalElement.addEventListener("shown.bs.modal", () => {
             pointsInput.focus();
-        });
-        // Enter lenyomására azonnal mentés
-        pointsInput.addEventListener("keypress", (event) => {
+        }, { once: true });
+        // Új eseményfigyelő létrehozása, ha még nincs rajta
+        function handleEnterPress(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 saveButton.click();
             }
-        });
-        saveButton.onclick = function () {
-            const pointsToDeduct = parseInt(pointsInput.value, 10);
+        }
+        // Eseményfigyelő hozzáadása egyszer az oldal betöltésekor
+        if (!pointsInput.dataset.listenerAdded) {
+            pointsInput.addEventListener("keypress", handleEnterPress);
+            pointsInput.dataset.listenerAdded = "true"; // Megjelöljük, hogy már van
+        }
+        saveButton.onclick = function savePoints() {
+            const pointsToDeduct = parseInt(pointsInput.value.trim(), 10);
+            console.log(`${players[currentIndex].name} pontszáma: ${pointsToDeduct}`);
             if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
                 players[currentIndex].deductPoints(pointsToDeduct);
                 currentIndex++;
                 modal.hide();
+                // Ellenőrizzük, hogy a modal ténylegesen bezárult-e
+                const modalBackdrop = document.querySelector('.modal-backdrop');
+                if (modalBackdrop) {
+                    // Ha a backdrop még nem tűnt el, manuálisan eltávolítjuk
+                    document.body.classList.remove('modal-open');
+                    document.body.removeChild(modalBackdrop);
+                }
                 showModalForPlayer(); // Következő játékos megjelenítése
             }
             else {
