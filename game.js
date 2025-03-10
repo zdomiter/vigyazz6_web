@@ -97,23 +97,35 @@ function startNewRound() {
     function showModalForPlayer() {
         if (currentIndex >= players.length) {
             savePlayersToLocalStorage(players);
-            updateIndexPlayerList();
+            //updateIndexPlayerList();
             return;
         }
         const player = players[currentIndex];
         const playerPrompt = document.getElementById("playerPrompt");
         const pointsInput = document.getElementById("pointsInput");
+        const saveButton = document.getElementById("savePoints");
+        const modalElement = document.getElementById("pointsModal");
         playerPrompt.textContent = `${player.name} hány pontot gyűjtött ebben a körben?`;
         pointsInput.value = ""; // Alapértelmezett érték törlése
-        const modal = new bootstrap.Modal(document.getElementById("pointsModal"));
+        const modal = new bootstrap.Modal(modalElement);
         modal.show();
-        document.getElementById("savePoints").onclick = function () {
+        // Fókusz automatikus beállítása a beviteli mezőre a modál megnyitásakor
+        modalElement.addEventListener("shown.bs.modal", () => {
+            pointsInput.focus();
+        });
+        // Enter lenyomására azonnal mentés
+        pointsInput.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                saveButton.click();
+            }
+        });
+        saveButton.onclick = function () {
             const pointsToDeduct = parseInt(pointsInput.value, 10);
             if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
                 players[currentIndex].deductPoints(pointsToDeduct);
                 currentIndex++;
                 modal.hide();
-                updateIndexPlayerList();
                 showModalForPlayer(); // Következő játékos megjelenítése
             }
             else {
