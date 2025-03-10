@@ -17,7 +17,7 @@ function updateIndexPlayerList() {
     let prevPoints: number | null = null;
     let displayedRank: number = 0;
 
-    
+
     players.forEach((player, index) => {
         if (player.points !== prevPoints) {
             displayedRank++;
@@ -102,20 +102,20 @@ document.addEventListener("DOMContentLoaded", () => {
         //setTimeout(() => startNewRound(), 300);
     };
     // Gomb hozzáadása a DOM-hoz
-if (players.length >= 2) {
-    container.before(newRoundButton);
-} else if (players.length === 0) {
-    // Üzenet létrehozása és Bootstrap-stílus alkalmazása
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
-    messageDiv.innerHTML = `
+    if (players.length >= 2) {
+        container.before(newRoundButton);
+    } else if (players.length === 0) {
+        // Üzenet létrehozása és Bootstrap-stílus alkalmazása
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
+        messageDiv.innerHTML = `
         <h2 class="mb-3">Üdvözöllek! Ez a Vigyáz(z)6! játék segédje.</h2>
         <p class="mb-3">A játékhoz legalább két játékosra lesz szükség.</p>
         <a href="player.html" class="btn btn-primary">Tovább a játékosokhoz</a>
     `;
-    
-    container.before(messageDiv);
-}
+
+        container.before(messageDiv);
+    }
     updateIndexPlayerList();
 });
 function startNewRound() {
@@ -124,7 +124,7 @@ function startNewRound() {
     function showModalForPlayer() {
         if (currentIndex >= players.length) {
             savePlayersToLocalStorage(players);
-            //updateIndexPlayerList();
+            updateIndexPlayerList();
             return;
         }
 
@@ -134,7 +134,7 @@ function startNewRound() {
         const saveButton = document.getElementById("savePoints")! as HTMLButtonElement;
         const modalElement = document.getElementById("pointsModal")!;
 
-        playerPrompt.textContent = `${player.name} hány pontot gyűjtött ebben a körben?`;
+        playerPrompt.innerHTML = `${player.name}`;
         pointsInput.value = ""; // Alapértelmezett érték törlése
 
         const modal = new bootstrap.Modal(modalElement);
@@ -143,22 +143,37 @@ function startNewRound() {
         // Fókusz automatikus beállítása a beviteli mezőre a modál megnyitásakor
         modalElement.addEventListener("shown.bs.modal", () => {
             pointsInput.focus();
-        });
+        }, { once: true });
 
-        // Enter lenyomására azonnal mentés
-        pointsInput.addEventListener("keypress", (event) => {
+        // Új eseményfigyelő létrehozása, ha még nincs rajta
+        function handleEnterPress(event: KeyboardEvent) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 saveButton.click();
             }
-        });
+        }
 
-        saveButton.onclick = function () {
-            const pointsToDeduct = parseInt(pointsInput.value, 10);
+        // Eseményfigyelő hozzáadása egyszer az oldal betöltésekor
+        if (!pointsInput.dataset.listenerAdded) {
+            pointsInput.addEventListener("keypress", handleEnterPress);
+            pointsInput.dataset.listenerAdded = "true"; // Megjelöljük, hogy már van
+        }
+
+        saveButton.onclick = function savePoints() {
+            const pointsToDeduct = parseInt(pointsInput.value.trim(), 10);
+            console.log(`${players[currentIndex].name} pontszáma: ${pointsToDeduct}`);
+
             if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
                 players[currentIndex].deductPoints(pointsToDeduct);
                 currentIndex++;
                 modal.hide();
+                // Ellenőrizzük, hogy a modal ténylegesen bezárult-e
+                const modalBackdrop = document.querySelector('.modal-backdrop');
+                if (modalBackdrop) {
+                    // Ha a backdrop még nem tűnt el, manuálisan eltávolítjuk
+                    document.body.classList.remove('modal-open');
+                    document.body.removeChild(modalBackdrop);
+                }
                 showModalForPlayer(); // Következő játékos megjelenítése
             } else {
                 alert("Érvényes számot adj meg!"); // Hibakezelés
@@ -170,11 +185,9 @@ function startNewRound() {
 }
 
 
-
-
 function checkGameOver() {
     const newRoundButton = document.getElementById("button") as HTMLButtonElement;
-    
+
     // Van-e olyan játékos, akinek 0 vagy kevesebb pontja van?
     const hasLoser = players.some(player => player.points <= 0);
 
