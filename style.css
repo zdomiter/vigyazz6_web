@@ -1,6 +1,9 @@
-.bg-dark {
-    --bs-bg-opacity: 1;
-    background-color: #304ea4;
+.navbar.bg-dark {
+    background-color: #304ea4 !important;
+}
+.btn-primary {
+    background-color: #304ea4 !important; 
+    border-color: #304ea4 !important;
 }
 #players-container {
     display: flex;
@@ -26,7 +29,7 @@
 .modal-title {
     font-size: 1rem;
 }
-.modal-body {
+#playerPrompt {
     font-size: 1.5rem; /* 1.5x nagyobb betűméret, állítható */
 }
 
