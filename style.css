@@ -1,8 +1,16 @@
+body {
+    background-image: url('bg-vigyazz6.jpg'); /* Kép betöltése */
+    background-size: cover; /* Kitölti az egész képernyőt */
+    background-position: center; /* Középre igazítja */
+    background-repeat: no-repeat; /* Nem ismétlődik */
+    background-attachment: fixed; /* Fix háttér (nem görgetődik) */
+}
+
 .navbar.bg-dark {
     background-color: #304ea4 !important;
 }
 .btn-primary {
-    background-color: #304ea4 !important; 
+    background-color: #30A44C !important; 
     border-color: #304ea4 !important;
 }
 #players-container {
@@ -12,7 +20,7 @@
 
 .card {
     padding: 4px;
-    background-color: #ffffff;
+    background-color:rgb(229, 236, 255);
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
 }
@@ -24,6 +32,7 @@
 .badge {
     font-size: 12px; /* Kisebb badge méret */
     padding: 2px 6px; /* Kisebb padding a badge-eknél */
+    background-color:#A43088;
 }
 
 .modal-title {
@@ -50,4 +59,13 @@
 #player-list li {
     padding: 10px;
     font-size: 1.1rem;
+}
+#player-list{
+    padding-top: 20px;
+}
+.rules-container {
+    background: rgba(255, 255, 255, 0.7); /* Fehér, 70%-os áttetszőség */
+    margin: 20px; /* Szélek belső térköze */
+    padding: 10px;
+    border-radius: 10px; /* Lekerekített sarkok */
 }

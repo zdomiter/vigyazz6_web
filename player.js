@@ -64,7 +64,7 @@ function createStartButton() {
     const startButton = document.createElement("button");
     startButton.id = "start-game";
     startButton.textContent = "Játék indítása";
-    startButton.classList.add("btn", "btn-success", "mt-3", "d-block", "mx-auto");
+    startButton.classList.add("btn", "btn-primary", "mt-3", "d-block", "mx-auto");
     // Eseménykezelő hozzáadása
     startButton.addEventListener("click", () => {
         players.forEach(player => {
