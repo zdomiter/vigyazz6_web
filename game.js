@@ -45,7 +45,7 @@ function updateIndexPlayerList() {
             previousRoundsDiv.classList.add("mt-2");
             player.previousRounds.forEach((roundPoints) => {
                 const badge = document.createElement("span");
-                badge.classList.add("badge", "bg-secondary", "me-1");
+                badge.classList.add("badge", "me-1");
                 badge.textContent = roundPoints.toString();
                 previousRoundsDiv.appendChild(badge);
             });
@@ -69,12 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     // Új kör gomb LÉTREHOZÁSA csak EGYSZER
     const newRoundButton = document.createElement("button");
+    newRoundButton.id = "newRoundButton";
     newRoundButton.textContent = "Új kör";
     newRoundButton.classList.add("btn", "btn-primary", "mb-3");
     newRoundButton.onclick = () => {
         closeBootstrapMenuIfOpen(); // Menü bezárása
         startNewRound();
-        //setTimeout(() => startNewRound(), 300);
     };
     // Gomb hozzáadása a DOM-hoz
     if (players.length >= 2) {
@@ -150,7 +150,7 @@ function startNewRound() {
     showModalForPlayer();
 }
 function checkGameOver() {
-    const newRoundButton = document.getElementById("button");
+    const newRoundButton = document.getElementById("newRoundButton");
     // Van-e olyan játékos, akinek 0 vagy kevesebb pontja van?
     const hasLoser = players.some(player => player.points <= 0);
     if (hasLoser) {
