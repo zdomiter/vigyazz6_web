@@ -1,5 +1,6 @@
 import { User } from "./user.js";
 import { savePlayersToLocalStorage, loadPlayersFromLocalStorage } from "./storage.js";
+declare var bootstrap: any;
 
 let players: User[] = loadPlayersFromLocalStorage();
 
@@ -43,6 +44,18 @@ function deletePlayer(index: number): void {
 
 // ✅ Form kezelése
 document.addEventListener("DOMContentLoaded", () => {
+    let modalElement = document.getElementById("storageInfoModal");
+
+    if (modalElement) { // Ellenőrizzük, hogy létezik-e a modal
+        if (!localStorage.getItem("storageNoticeAccepted")) {
+            let modal = new bootstrap.Modal(modalElement);
+            modal.show();
+
+            modalElement.addEventListener("hidden.bs.modal", function () {
+                localStorage.setItem("storageNoticeAccepted", "true");
+            });
+        }
+    }
     updatePlayerList();
 
     const form = document.getElementById("player-form");

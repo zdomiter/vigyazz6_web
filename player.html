@@ -29,7 +29,7 @@
                         <a class="nav-link active" href="player.html">Játékosok</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="game_rules.html" >Játékszabály</a>
+                        <a class="nav-link" href="game_rules.html">Játékszabály</a>
                     </li>
                 </ul>
             </div>
@@ -38,7 +38,7 @@
     <div class="container pt-3">
         <div class="text-center">
             <h2 class="mb-3">Játékosok</h2>
-            
+
             <form id="player-form" class="row g-2 justify-content-center">
                 <div class="col-10">
                     <input type="text" id="new-player" class="form-control" placeholder="Új név" required>
@@ -47,12 +47,30 @@
                     <button type="submit" class="btn btn-primary w-100">+</button>
                 </div>
             </form>
-            
+
             <ul id="player-list" class="list-group mt-3"></ul>
         </div>
     </div>
-    
+
     <div id="button-container"></div>
+    <div class="modal fade" id="storageInfoModal" tabindex="-1" aria-labelledby="storageInfoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="storageInfoLabel">Adatmentés a böngészőben</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Bezárás"></button>
+                </div>
+                <div class="modal-body">
+                    Ez az alkalmazás a böngésződet használja a játékállás mentésére.
+                    Az adatok <strong>nem kerülnek szerverre</strong>, és csak ezen az eszközön érhetők el.
+                    Ha törlöd a böngésző adatait, a mentett játékállás is elveszik.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script type="module" src="player.js"></script>
