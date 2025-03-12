@@ -1,4 +1,4 @@
-import { loadPlayersFromLocalStorage, savePlayersToLocalStorage } from "./storage.js";
+import { loadPlayersFromLocalStorage, saveGamesToLocalStorage, savePlayersToLocalStorage } from "./storage.js";
 let players = loadPlayersFromLocalStorage();
 // ✅ Játékos állás frissítése
 function updateIndexPlayerList() {
@@ -114,18 +114,6 @@ function startNewRound() {
         modalElement.addEventListener("shown.bs.modal", () => {
             pointsInput.focus();
         }, { once: true });
-        // Új eseményfigyelő létrehozása, ha még nincs rajta
-        function handleEnterPress(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                saveButton.click();
-            }
-        }
-        // Eseményfigyelő hozzáadása egyszer az oldal betöltésekor
-        if (!pointsInput.dataset.listenerAdded) {
-            pointsInput.addEventListener("keypress", handleEnterPress);
-            pointsInput.dataset.listenerAdded = "true"; // Megjelöljük, hogy már van
-        }
         saveButton.onclick = function savePoints() {
             const pointsToDeduct = parseInt(pointsInput.value.trim(), 10);
             console.log(`${players[currentIndex].name} pontszáma: ${pointsToDeduct}`);
@@ -158,6 +146,7 @@ function checkGameOver() {
         document.querySelectorAll("#win").forEach((card) => {
             card.classList.add("bg-danger", "text-white");
         });
+        saveGamesToLocalStorage(players);
         // Az "Új kör" gomb elrejtése
         if (newRoundButton) {
             newRoundButton.style.display = "none";
