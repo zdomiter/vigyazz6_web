@@ -5,7 +5,7 @@ export function savePlayersToLocalStorage(players) {
 export function loadPlayersFromLocalStorage() {
     const storedPlayers = localStorage.getItem("players");
     if (storedPlayers) {
-        return JSON.parse(storedPlayers).map((p) => new User(p._name, p._points, p._previousRounds));
+        return JSON.parse(storedPlayers).map((p) => new User(p._name, p._points, p._previousRounds, p.rank));
     }
     return [];
 }
@@ -15,17 +15,19 @@ export function saveGamesToLocalStorage(players) {
     const games = storedGames ? JSON.parse(storedGames) : [];
     // Új játék létrehozása
     const newGame = {
-        timestamp: new Date().toISOString(), // Aktuális idő ISO formátumban
-        players: players
-            .sort((a, b) => b.points - a.points) // Pontszám szerint rendezve
-            .map((player, index) => ({
+        timestamp: new Date().toLocaleString("hu-HU", { timeZone: "Europe/Budapest" }), // Helyi idő
+        players: players.map(player => ({
             name: player.name,
             points: player.points,
-            rank: index + 1, // 1-től kezdődő helyezés
-        })),
+            rank: player.rank // Már tárolt helyezés
+        }))
     };
     // Hozzáadjuk az új játékot
     games.push(newGame);
     // Elmentjük a localStorage-be
     localStorage.setItem("games", JSON.stringify(games));
+}
+export function getGamesFromLocalStorage() {
+    const gamesData = localStorage.getItem("games");
+    return gamesData ? JSON.parse(gamesData) : [];
 }

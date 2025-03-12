@@ -2,6 +2,11 @@ import { User } from "./user.js";
 import { loadPlayersFromLocalStorage, saveGamesToLocalStorage, savePlayersToLocalStorage } from "./storage.js";
 declare var bootstrap: any;
 
+interface GameResult {
+    timestamp: string; // Időbélyeg (pl. "2025-03-11 14:30:00")
+    players: { name: string; points: number; rank: number }[]; // Játékosok adatai
+}
+
 let players: User[] = loadPlayersFromLocalStorage();
 
 // ✅ Játékos állás frissítése
@@ -18,10 +23,11 @@ function updateIndexPlayerList() {
     let displayedRank: number = 0;
 
 
-    players.forEach((player, index) => {
+    players.forEach((player) => {
         if (player.points !== prevPoints) {
             displayedRank++;
         }
+        player.rank = displayedRank;
         prevPoints = player.points;
 
         const card = document.createElement("div");
@@ -76,15 +82,6 @@ function updateIndexPlayerList() {
     });
 
     checkGameOver();
-}
-
-
-
-// ✅ Pontlevonás egy játékostól
-function deductPoints(index: number, points: number): void {
-    players[index].deductPoints(points);
-    savePlayersToLocalStorage(players);
-    updateIndexPlayerList();
 }
 
 // ✅ Betöltéskor frissítés
@@ -182,7 +179,10 @@ function checkGameOver() {
         document.querySelectorAll("#win").forEach((card) => {
             (card as HTMLElement).classList.add("bg-danger", "text-white");
         });
-        saveGamesToLocalStorage(players); 
+        if (!localStorage.getItem("gameSaved")) {
+            saveGamesToLocalStorage(players); // Eredmény mentése
+            localStorage.setItem("gameSaved", "true"); // Mentés megtörtént
+        }
 
         // Az "Új kör" gomb elrejtése
         if (newRoundButton) {
@@ -203,4 +203,5 @@ function closeBootstrapMenuIfOpen() {
         bsCollapse.hide();
     }
 }
+
 
