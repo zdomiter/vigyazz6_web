@@ -10,10 +10,11 @@ function updateIndexPlayerList() {
     players.sort((a, b) => b.points - a.points);
     let prevPoints = null;
     let displayedRank = 0;
-    players.forEach((player, index) => {
+    players.forEach((player) => {
         if (player.points !== prevPoints) {
             displayedRank++;
         }
+        player.rank = displayedRank;
         prevPoints = player.points;
         const card = document.createElement("div");
         card.classList.add("card", "mb-3", "w-100");
@@ -55,12 +56,6 @@ function updateIndexPlayerList() {
         container.appendChild(card);
     });
     checkGameOver();
-}
-// ✅ Pontlevonás egy játékostól
-function deductPoints(index, points) {
-    players[index].deductPoints(points);
-    savePlayersToLocalStorage(players);
-    updateIndexPlayerList();
 }
 // ✅ Betöltéskor frissítés
 document.addEventListener("DOMContentLoaded", () => {
@@ -146,7 +141,10 @@ function checkGameOver() {
         document.querySelectorAll("#win").forEach((card) => {
             card.classList.add("bg-danger", "text-white");
         });
-        saveGamesToLocalStorage(players);
+        if (!localStorage.getItem("gameSaved")) {
+            saveGamesToLocalStorage(players); // Eredmény mentése
+            localStorage.setItem("gameSaved", "true"); // Mentés megtörtént
+        }
         // Az "Új kör" gomb elrejtése
         if (newRoundButton) {
             newRoundButton.style.display = "none";

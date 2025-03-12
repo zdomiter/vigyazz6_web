@@ -1,8 +1,9 @@
 export class User {
-    constructor(name, points = 66, previousRounds = []) {
+    constructor(name, points = 66, previousRounds = [], rank = 1) {
         this._name = name;
         this._points = points;
         this._previousRounds = previousRounds;
+        this._rank = rank;
     }
     get name() {
         return this._name;
@@ -21,6 +22,12 @@ export class User {
     }
     set previousRounds(newPoints) {
         this._previousRounds = newPoints;
+    }
+    get rank() {
+        return this._rank;
+    }
+    set rank(newRank) {
+        this._rank = newRank;
     }
     deductPoints(points) {
         this._points -= points;

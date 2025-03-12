@@ -81,6 +81,7 @@ function createStartButton() {
 
     // Eseménykezelő hozzáadása
     startButton.addEventListener("click", () => {
+        localStorage.removeItem("gameSaved"); // Új játék kezdetén töröljük a flag-et
         players.forEach(player => {
             player.points = 66; // Pontok inicializálása
             player.previousRounds = []; // Előző játékok inicializálása

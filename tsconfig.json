@@ -20,7 +20,8 @@
         "./game.ts",
         "./player.ts",
         "./storage.ts",
-        "./user.ts"
+        "./user.ts",
+        "./history.ts"
     ],
     "exclude": [
         "./"
