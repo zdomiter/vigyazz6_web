@@ -10,12 +10,23 @@ function updatePlayerList() {
     players.forEach((player, index) => {
         const li = document.createElement("li");
         li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
-        li.textContent = `${player.name}`;
+        // Ikon elem létrehozása
+        const icon = document.createElement("i");
+        icon.classList.add("bi", "bi-person", "me-2"); // Bootstrap Icons személy ikon, kis jobb marginnal
+        // Név span létrehozása
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = player.name;
+        // Név és ikon egybe
+        const nameContainer = document.createElement("div");
+        nameContainer.classList.add("d-flex", "align-items-center");
+        nameContainer.appendChild(icon);
+        nameContainer.appendChild(nameSpan);
         // Törlés gomb
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
         deleteButton.classList.add("btn", "btn-sm", "btn-danger");
         deleteButton.onclick = () => deletePlayer(index);
+        li.appendChild(nameContainer);
         li.appendChild(deleteButton);
         playerList.appendChild(li);
     });
