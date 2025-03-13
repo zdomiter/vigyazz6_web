@@ -23,7 +23,7 @@ export function saveGamesToLocalStorage(players) {
         }))
     };
     // Hozzáadjuk az új játékot
-    games.push(newGame);
+    games.unshift(newGame);
     // Elmentjük a localStorage-be
     localStorage.setItem("games", JSON.stringify(games));
 }

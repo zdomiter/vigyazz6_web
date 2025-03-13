@@ -14,7 +14,19 @@ function updatePlayerList(): void {
         const li = document.createElement("li");
         li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
 
-        li.textContent = `${player.name}`;
+        // Ikon elem létrehozása
+        const icon = document.createElement("i");
+        icon.classList.add("bi", "bi-person", "me-2"); // Bootstrap Icons személy ikon, kis jobb marginnal
+
+        // Név span létrehozása
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = player.name;
+
+        // Név és ikon egybe
+        const nameContainer = document.createElement("div");
+        nameContainer.classList.add("d-flex", "align-items-center");
+        nameContainer.appendChild(icon);
+        nameContainer.appendChild(nameSpan);
 
         // Törlés gomb
         const deleteButton = document.createElement("button");
@@ -22,11 +34,13 @@ function updatePlayerList(): void {
         deleteButton.classList.add("btn", "btn-sm", "btn-danger");
         deleteButton.onclick = () => deletePlayer(index);
 
+        li.appendChild(nameContainer);
         li.appendChild(deleteButton);
         playerList.appendChild(li);
     });
     createStartButton();
 }
+
 
 // ✅ Új játékos hozzáadása
 function addPlayer(name: string): void {
