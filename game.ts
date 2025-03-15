@@ -22,16 +22,24 @@ function updateIndexPlayerList() {
     let prevPoints: number | null = null;
     let displayedRank: number = 0;
 
+    const baseColor = [220, 80, 40]; // HSL: Sötétkék (hue: 220, saturation: 80%, lightness: 40%)
+    const lightnessIncrement = 5; // Minden kártyánál növeljük a világosságot 5%-kal
 
-    players.forEach((player) => {
+
+    players.forEach((player, index) => {
         if (player.points !== prevPoints) {
             displayedRank++;
         }
         player.rank = displayedRank;
         prevPoints = player.points;
+
+        const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 90); // Ne legyen túl világos
+
     
         const card = document.createElement("div");
         card.classList.add("card", "mb-3", "w-100");
+        card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`; // HSL szín beállítása
+
     
         if (displayedRank === 1) {
             card.id = "win";
@@ -43,17 +51,17 @@ function updateIndexPlayerList() {
         const row = document.createElement("div");
         row.classList.add("row", "align-items-center");
     
-        // Helyezés fekete négyzetben
+        // Helyezés fehér négyzetben
         const rankDiv = document.createElement("div");
-        rankDiv.classList.add("col-2", "d-flex", "justify-content-center");
+        rankDiv.classList.add("col-2", "d-flex", "text-start");
         rankDiv.innerHTML = `<div class="rank-box">${displayedRank}</div>`;
     
         const nameDiv = document.createElement("div");
-        nameDiv.classList.add("col-6", "fw-bold");
+        nameDiv.classList.add("col-8", "fw-bold");
         nameDiv.textContent = player.name;
     
         const pointsDiv = document.createElement("div");
-        pointsDiv.classList.add("col-4", "text-end", "fw-bold");
+        pointsDiv.classList.add("col-2", "text-end", "fw-bold");
         pointsDiv.textContent = `${player.points}`;
     
         row.appendChild(rankDiv);
