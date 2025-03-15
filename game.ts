@@ -29,57 +29,64 @@ function updateIndexPlayerList() {
         }
         player.rank = displayedRank;
         prevPoints = player.points;
-
+    
         const card = document.createElement("div");
         card.classList.add("card", "mb-3", "w-100");
-
+    
         if (displayedRank === 1) {
             card.id = "win";
         }
-
+    
         const cardBody = document.createElement("div");
         cardBody.classList.add("card-body");
-
+    
         const row = document.createElement("div");
         row.classList.add("row", "align-items-center");
-
+    
+        // Helyezés fekete négyzetben
         const rankDiv = document.createElement("div");
-        rankDiv.classList.add("col-2", "fw-bold");
-        rankDiv.textContent = `${displayedRank}.`;
-
+        rankDiv.classList.add("col-2", "d-flex", "justify-content-center");
+        rankDiv.innerHTML = `<div class="rank-box">${displayedRank}</div>`;
+    
         const nameDiv = document.createElement("div");
-        nameDiv.classList.add("col-6");
+        nameDiv.classList.add("col-6", "fw-bold");
         nameDiv.textContent = player.name;
-
+    
         const pointsDiv = document.createElement("div");
         pointsDiv.classList.add("col-4", "text-end", "fw-bold");
-        pointsDiv.textContent = `${player.points} pont`;
-
+        pointsDiv.textContent = `${player.points}`;
+    
         row.appendChild(rankDiv);
         row.appendChild(nameDiv);
         row.appendChild(pointsDiv);
         cardBody.appendChild(row);
-        card.appendChild(cardBody);
-        container.appendChild(card);
-
+    
+   
         // Korábbi körök pontjai badge-ekben
         if (player.previousRounds && player.previousRounds.length > 0) {
+            const separator = document.createElement("div");
+            separator.classList.add("separator");
             const previousRoundsDiv = document.createElement("div");
             previousRoundsDiv.classList.add("mt-2");
-
+    
             player.previousRounds.forEach((roundPoints) => {
                 const badge = document.createElement("span");
-                badge.classList.add("badge", "me-1");
+                badge.classList.add("round-badge");
                 badge.textContent = roundPoints.toString();
                 previousRoundsDiv.appendChild(badge);
             });
-
+    
+            cardBody.appendChild(separator);
             cardBody.appendChild(previousRoundsDiv);
+            
         }
-
+    
         card.appendChild(cardBody);
         container.appendChild(card);
     });
+    
+    
+    
 
     checkGameOver();
 }
