@@ -44,10 +44,12 @@ function updatePlayerList(): void {
 
 // ✅ Új játékos hozzáadása
 function addPlayer(name: string): void {
-    players.push(new User(name));
+    const upperCaseName = name.toUpperCase();
+    players.push(new User(upperCaseName));
     savePlayersToLocalStorage(players);
     updatePlayerList();
 }
+
 
 // ✅ Játékos törlése
 function deletePlayer(index: number): void {

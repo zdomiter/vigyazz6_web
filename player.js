@@ -34,7 +34,8 @@ function updatePlayerList() {
 }
 // ✅ Új játékos hozzáadása
 function addPlayer(name) {
-    players.push(new User(name));
+    const upperCaseName = name.toUpperCase();
+    players.push(new User(upperCaseName));
     savePlayersToLocalStorage(players);
     updatePlayerList();
 }
