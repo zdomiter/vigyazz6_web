@@ -4,6 +4,7 @@ body {
     background-position: center; /* Középre igazítja */
     background-repeat: no-repeat; /* Nem ismétlődik */
     background-attachment: fixed; /* Fix háttér (nem görgetődik) */
+    font-family: 'Rubik', sans-serif;
 }
 
 .navbar.bg-dark {
@@ -20,19 +21,43 @@ body {
 
 .card {
     padding: 4px;
-    background-color:rgb(229, 236, 255);
+    background-color:#304ea4;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
 }
 
 .card-body {
     padding: 2px 10px;
+    color: white;
+}
+.rank-box {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 1.2rem;
 }
 
-.badge {
-    font-size: 12px; /* Kisebb badge méret */
-    padding: 2px 6px; /* Kisebb padding a badge-eknél */
+.round-badge {
+    display: inline-block;
+    padding: 2px 6px;
     background-color:#A43088;
+    color: white;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+
+
+.separator {
+    height: 1px;
+    background-color: #ccc; /* Halvány szürke vonal */
+    margin: 8px 0;
 }
 
 .modal-title {
