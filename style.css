@@ -18,8 +18,20 @@ body {
     display: flex;
     flex-wrap: wrap;
 }
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
 
 .card {
+    opacity: 0;
+    animation: popIn 0.4s ease-out forwards;
     padding: 4px;
     background-color:#304ea4;
     border-radius: 8px;
