@@ -20,10 +20,10 @@ function updateIndexPlayerList() {
     container.innerHTML = "";
     assignPlayerRanks(players);
     const baseColor = [220, 80, 40]; // HSL: Sötétkék (hue: 220, saturation: 80%, lightness: 40%)
-    const lightnessIncrement = 5; // Minden kártyánál növeljük a világosságot 5%-kal
+    const lightnessIncrement = 20 / players.length; // Minden kártyánál növeljük a világosságot 5%-kal
     players.forEach((player, index) => {
         setTimeout(() => {
-            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 90); // Ne legyen túl világos
+            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 60); // Ne legyen túl világos
             const card = document.createElement("div");
             card.classList.add("card", "mb-3", "w-100");
             card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`; // HSL szín beállítása
