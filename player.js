@@ -32,16 +32,26 @@ function updatePlayerList() {
     });
     createStartButton();
 }
-// ✅ Új játékos hozzáadása
-function addPlayer(name) {
-    const upperCaseName = name.toUpperCase();
-    players.push(new User(upperCaseName));
-    savePlayersToLocalStorage(players);
-    updatePlayerList();
-}
 // ✅ Játékos törlése
 function deletePlayer(index) {
     players.splice(index, 1);
+    savePlayersToLocalStorage(players);
+    updatePlayerList();
+}
+// ✅ Új játékos hozzáadása
+function addPlayer(name) {
+    const upperCaseName = name.toUpperCase();
+    // 1. Levágjuk 20 karakterre és eltávolítjuk a felesleges szóközöket
+    let trimmedName = upperCaseName.trim().substring(0, 20);
+    // 2. Ellenőrizzük, hogy a név egyedi-e
+    let uniqueName = trimmedName;
+    let count = 1;
+    while (players.some(player => player.name === uniqueName)) {
+        count++;
+        uniqueName = `${trimmedName} ${count}`;
+    }
+    // 3. Létrehozzuk és hozzáadjuk az új játékost
+    players.push(new User(uniqueName));
     savePlayersToLocalStorage(players);
     updatePlayerList();
 }
@@ -65,6 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (input.value.trim() !== "") {
             addPlayer(input.value);
             input.value = "";
+        }
+        else {
+            alert("Adj meg egy nevet!"); // Opcionálisan jelezhetjük a felhasználónak
         }
     });
 });
