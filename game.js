@@ -1,67 +1,75 @@
 import { loadPlayersFromLocalStorage, saveGamesToLocalStorage, savePlayersToLocalStorage } from "./storage.js";
 let players = loadPlayersFromLocalStorage();
-// ✅ Játékos állás frissítése
-function updateIndexPlayerList() {
-    const container = document.getElementById("players-container");
-    if (!container)
-        return;
-    container.innerHTML = "";
-    // 1. Játékosok rendezése pontszám szerint
+// Játékos állás frissítése
+function assignPlayerRanks(players) {
     players.sort((a, b) => b.points - a.points);
     let prevPoints = null;
     let displayedRank = 0;
-    const baseColor = [220, 80, 40]; // HSL: Sötétkék (hue: 220, saturation: 80%, lightness: 40%)
-    const lightnessIncrement = 5; // Minden kártyánál növeljük a világosságot 5%-kal
-    players.forEach((player, index) => {
+    players.forEach((player) => {
         if (player.points !== prevPoints) {
             displayedRank++;
         }
         player.rank = displayedRank;
         prevPoints = player.points;
-        const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 90); // Ne legyen túl világos
-        const card = document.createElement("div");
-        card.classList.add("card", "mb-3", "w-100");
-        card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`; // HSL szín beállítása
-        if (displayedRank === 1) {
-            card.id = "win";
-        }
-        const cardBody = document.createElement("div");
-        cardBody.classList.add("card-body");
-        const row = document.createElement("div");
-        row.classList.add("row", "align-items-center");
-        // Helyezés fehér négyzetben
-        const rankDiv = document.createElement("div");
-        rankDiv.classList.add("col-2", "d-flex", "text-start");
-        rankDiv.innerHTML = `<div class="rank-box">${displayedRank}</div>`;
-        const nameDiv = document.createElement("div");
-        nameDiv.classList.add("col-8", "fw-bold");
-        nameDiv.textContent = player.name;
-        const pointsDiv = document.createElement("div");
-        pointsDiv.classList.add("col-2", "text-end", "fw-bold");
-        pointsDiv.textContent = `${player.points}`;
-        row.appendChild(rankDiv);
-        row.appendChild(nameDiv);
-        row.appendChild(pointsDiv);
-        cardBody.appendChild(row);
-        // Korábbi körök pontjai badge-ekben
-        if (player.previousRounds && player.previousRounds.length > 0) {
-            const separator = document.createElement("div");
-            separator.classList.add("separator");
-            const previousRoundsDiv = document.createElement("div");
-            previousRoundsDiv.classList.add("mt-2");
-            player.previousRounds.forEach((roundPoints) => {
-                const badge = document.createElement("span");
-                badge.classList.add("round-badge");
-                badge.textContent = roundPoints.toString();
-                previousRoundsDiv.appendChild(badge);
-            });
-            cardBody.appendChild(separator);
-            cardBody.appendChild(previousRoundsDiv);
-        }
-        card.appendChild(cardBody);
-        container.appendChild(card);
     });
-    checkGameOver();
+}
+function updateIndexPlayerList() {
+    const container = document.getElementById("players-container");
+    if (!container)
+        return;
+    container.innerHTML = "";
+    assignPlayerRanks(players);
+    const baseColor = [220, 80, 40]; // HSL: Sötétkék (hue: 220, saturation: 80%, lightness: 40%)
+    const lightnessIncrement = 5; // Minden kártyánál növeljük a világosságot 5%-kal
+    players.forEach((player, index) => {
+        setTimeout(() => {
+            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 90); // Ne legyen túl világos
+            const card = document.createElement("div");
+            card.classList.add("card", "mb-3", "w-100");
+            card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`; // HSL szín beállítása
+            if (player.rank === 1) {
+                card.id = "win";
+            }
+            // Animáció hozzáadása
+            card.style.animationDelay = `${index * 0.1}s`;
+            const cardBody = document.createElement("div");
+            cardBody.classList.add("card-body");
+            const row = document.createElement("div");
+            row.classList.add("row", "align-items-center");
+            // Helyezés fehér négyzetben
+            const rankDiv = document.createElement("div");
+            rankDiv.classList.add("col-2", "d-flex", "text-start");
+            rankDiv.innerHTML = `<div class="rank-box">${player.rank}</div>`;
+            const nameDiv = document.createElement("div");
+            nameDiv.classList.add("col-8", "fw-bold");
+            nameDiv.textContent = player.name;
+            const pointsDiv = document.createElement("div");
+            pointsDiv.classList.add("col-2", "text-end", "fw-bold");
+            pointsDiv.textContent = `${player.points}`;
+            row.appendChild(rankDiv);
+            row.appendChild(nameDiv);
+            row.appendChild(pointsDiv);
+            cardBody.appendChild(row);
+            // Korábbi körök pontjai badge-ekben
+            if (player.previousRounds && player.previousRounds.length > 0) {
+                const separator = document.createElement("div");
+                separator.classList.add("separator");
+                const previousRoundsDiv = document.createElement("div");
+                previousRoundsDiv.classList.add("mt-2");
+                player.previousRounds.forEach((roundPoints) => {
+                    const badge = document.createElement("span");
+                    badge.classList.add("round-badge");
+                    badge.textContent = roundPoints.toString();
+                    previousRoundsDiv.appendChild(badge);
+                });
+                cardBody.appendChild(separator);
+                cardBody.appendChild(previousRoundsDiv);
+            }
+            card.appendChild(cardBody);
+            container.appendChild(card);
+            checkGameOver();
+        }, index * 100); // Egyenként jelennek meg 100ms késéssel
+    });
 }
 // ✅ Betöltéskor frissítés
 document.addEventListener("DOMContentLoaded", () => {
