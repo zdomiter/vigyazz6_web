@@ -115,6 +115,6 @@ function togglePlayerForm() {
         form.style.display = "none"; // Elrejtés
     }
     else {
-        form.style.display = "block"; // Megjelenítés
+        form.style.display = "flex"; // Megjelenítés
     }
 }
