@@ -31,6 +31,7 @@ function updatePlayerList() {
         playerList.appendChild(li);
     });
     createStartButton();
+    togglePlayerForm();
 }
 // ✅ Játékos törlése
 function deletePlayer(index) {
@@ -67,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
-    updatePlayerList();
     const form = document.getElementById("player-form");
     form === null || form === void 0 ? void 0 : form.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Adj meg egy nevet!"); // Opcionálisan jelezhetjük a felhasználónak
         }
     });
+    updatePlayerList();
 });
 function createStartButton() {
     const container = document.getElementById("button-container");
@@ -106,5 +107,14 @@ function createStartButton() {
         container.appendChild(startButton);
     }
 }
-// Betöltéskor ellenőrzés
-document.addEventListener("DOMContentLoaded", createStartButton);
+function togglePlayerForm() {
+    const form = document.getElementById("player-form");
+    if (!form)
+        return;
+    if (players.length >= 10) {
+        form.style.display = "none"; // Elrejtés
+    }
+    else {
+        form.style.display = "block"; // Megjelenítés
+    }
+}

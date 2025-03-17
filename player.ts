@@ -39,6 +39,7 @@ function updatePlayerList(): void {
         playerList.appendChild(li);
     });
     createStartButton();
+    togglePlayerForm();
 }
 
 
@@ -86,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
-    updatePlayerList();
 
     const form = document.getElementById("player-form");
     form?.addEventListener("submit", (event) => {
@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Adj meg egy nevet!"); // Opcionálisan jelezhetjük a felhasználónak
         }
     });
+    updatePlayerList();
 });
 
 function createStartButton() {
@@ -130,5 +131,13 @@ function createStartButton() {
     }
 }
 
-// Betöltéskor ellenőrzés
-document.addEventListener("DOMContentLoaded", createStartButton);
+function togglePlayerForm(): void {
+    const form = document.getElementById("player-form");
+    if (!form) return;
+
+    if (players.length >= 10) {
+        form.style.display = "none"; // Elrejtés
+    } else {
+        form.style.display = "block"; // Megjelenítés
+    }
+}
