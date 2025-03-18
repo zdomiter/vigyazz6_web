@@ -54,7 +54,7 @@ function deletePlayer(index: number): void {
 function addPlayer(name: string) {
     const upperCaseName = name.toUpperCase();
     // 1. Levágjuk 20 karakterre és eltávolítjuk a felesleges szóközöket
-    let trimmedName = upperCaseName.trim().substring(0, 20);
+    let trimmedName = upperCaseName.trim().substring(0, 35);
 
     // 2. Ellenőrizzük, hogy a név egyedi-e
     let uniqueName = trimmedName;
