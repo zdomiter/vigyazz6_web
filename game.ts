@@ -35,7 +35,7 @@ function updateIndexPlayerList() {
     assignPlayerRanks(players);
 
     const baseColor = [220, 80, 40]; // HSL: Sötétkék (hue: 220, saturation: 80%, lightness: 40%)
-    const lightnessIncrement = 20/players.length; // Minden kártyánál növeljük a világosságot 5%-kal
+    const lightnessIncrement = 20 / players.length; // Minden kártyánál növeljük a világosságot 5%-kal
 
 
     players.forEach((player, index) => {
@@ -51,7 +51,7 @@ function updateIndexPlayerList() {
             if (player.rank === 1) {
                 card.id = "win";
             }
-            
+
             // Animáció hozzáadása
             card.style.animationDelay = `${index * 0.1}s`;
 
@@ -100,14 +100,11 @@ function updateIndexPlayerList() {
             }
             card.appendChild(cardBody);
             container.appendChild(card);
-            
+
         }, index * 100); // Egyenként jelennek meg 100ms késéssel
-    });    
+    });
     checkGameOver();
-    // Késleltetés után futtatjuk a győztes kiemelését
-    setTimeout(() => {
-        highlightWinner();
-    }, players.length * 100 + 50); // 50ms biztonsági ráhagyás
+
 }
 
 // ✅ Betöltéskor frissítés
@@ -203,7 +200,7 @@ function checkGameOver() {
     if (hasLoser) {
         // Kiemeljük a győztest (aki "win" ID-t kapott)
         //document.querySelectorAll("#win").forEach((card) => {
-            //(card as HTMLElement).classList.add("bg-danger", "text-white");
+        //(card as HTMLElement).classList.add("bg-danger", "text-white");
         //});
         //highlightWinner(); // Győztes kártyák késleltetése
         if (!localStorage.getItem("gameSaved")) {
@@ -221,6 +218,12 @@ function checkGameOver() {
             newRoundButton.style.display = "block";
         }
     }
+    if (hasLoser) {
+        // Késleltetés után futtatjuk a győztes kiemelését
+        setTimeout(() => {
+            highlightWinner();
+        }, players.length * 100 + 50); // 50ms biztonsági ráhagyás
+    }
 }
 function highlightWinner() {
     // Keresd meg az összes győztes kártyát (akik a "win" ID-t kapták)
@@ -229,11 +232,11 @@ function highlightWinner() {
     if (winners.length === 0) return;
 
     // Késleltetés, hogy minden kártya előbb megjelenjen
-    setTimeout(() => {
-        winners.forEach(winner => {
-            winner.classList.add("pop-animation", "text-white", "fw-bold", "border-danger", "bg-danger");
-        });
-    }, 500);
+
+    winners.forEach(winner => {
+        winner.classList.add("pop-animation", "text-white", "border-danger");
+    });
+
 }
 
 function closeBootstrapMenuIfOpen() {
