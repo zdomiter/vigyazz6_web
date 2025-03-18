@@ -67,9 +67,13 @@ function updateIndexPlayerList() {
             }
             card.appendChild(cardBody);
             container.appendChild(card);
-            checkGameOver();
         }, index * 100); // Egyenként jelennek meg 100ms késéssel
     });
+    checkGameOver();
+    // Késleltetés után futtatjuk a győztes kiemelését
+    setTimeout(() => {
+        highlightWinner();
+    }, players.length * 100 + 50); // 50ms biztonsági ráhagyás
 }
 // ✅ Betöltéskor frissítés
 document.addEventListener("DOMContentLoaded", () => {
@@ -152,9 +156,10 @@ function checkGameOver() {
     const hasLoser = players.some(player => player.points <= 0);
     if (hasLoser) {
         // Kiemeljük a győztest (aki "win" ID-t kapott)
-        document.querySelectorAll("#win").forEach((card) => {
-            card.classList.add("bg-danger", "text-white");
-        });
+        //document.querySelectorAll("#win").forEach((card) => {
+        //(card as HTMLElement).classList.add("bg-danger", "text-white");
+        //});
+        //highlightWinner(); // Győztes kártyák késleltetése
         if (!localStorage.getItem("gameSaved")) {
             saveGamesToLocalStorage(players); // Eredmény mentése
             localStorage.setItem("gameSaved", "true"); // Mentés megtörtént
@@ -170,6 +175,18 @@ function checkGameOver() {
             newRoundButton.style.display = "block";
         }
     }
+}
+function highlightWinner() {
+    // Keresd meg az összes győztes kártyát (akik a "win" ID-t kapták)
+    const winners = document.querySelectorAll("#win");
+    if (winners.length === 0)
+        return;
+    // Késleltetés, hogy minden kártya előbb megjelenjen
+    setTimeout(() => {
+        winners.forEach(winner => {
+            winner.classList.add("pop-animation", "text-white", "fw-bold", "border-danger", "bg-danger");
+        });
+    }, 500);
 }
 function closeBootstrapMenuIfOpen() {
     const menu = document.querySelector(".navbar-collapse");
