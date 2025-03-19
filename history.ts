@@ -28,6 +28,7 @@ function renderGameHistory(): void {
             📅<span style="color:white;">
                 ${game.timestamp.split("T")[0]}
             </span> <br>
+                <i class="bi bi-trophy"></i>
                <span style="float: right; text-align: right; color: white">
                     ${game.players
                     .filter(p => p.rank === 1)

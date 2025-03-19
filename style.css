@@ -1,14 +1,14 @@
 body {
-    background-image: url('bg-vigyazz6.jpg'); /* Kép betöltése */
-    background-size: cover; /* Kitölti az egész képernyőt */
+    background-image: url('bg-vigyazz6_50x50.jpg'); /* Kép betöltése */
+    /*background-size: cover; /* Kitölti az egész képernyőt */
     background-position: center; /* Középre igazítja */
-    background-repeat: no-repeat; /* Nem ismétlődik */
+    background-repeat:repeat; /* Nem ismétlődik */
     background-attachment: fixed; /* Fix háttér (nem görgetődik) */
     font-family: 'Rubik', sans-serif;
 }
 
 .rules-container {
-    background: rgba(255, 255, 255, 0.7); /* Fehér, 70%-os áttetszőség */
+    background: rgba(255, 255, 255, 0.85); /* Fehér, 70%-os áttetszőség */
     margin: 20px; 
     padding: 10px;
     border-radius: 10px; 
@@ -126,4 +126,8 @@ body {
 }
 #player-list{
     padding-top: 20px;
+}
+#player-h2{
+    color: #A43088;
+    font-weight: bold;
 }
