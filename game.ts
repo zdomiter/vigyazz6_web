@@ -45,15 +45,12 @@ function updateIndexPlayerList() {
 
 
             const card = document.createElement("div");
-            card.classList.add("card", "mb-3", "w-100");
+            card.classList.add("card", "mb-3", "w-100", "popIn-animation");
             card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`; // HSL szín beállítása
 
             if (player.rank === 1) {
                 card.id = "win";
             }
-
-            // Animáció hozzáadása
-            card.style.animationDelay = `${index * 0.1}s`;
 
             const cardBody = document.createElement("div");
             cardBody.classList.add("card-body");
@@ -199,10 +196,6 @@ function checkGameOver() {
 
     if (hasLoser) {
         // Kiemeljük a győztest (aki "win" ID-t kapott)
-        //document.querySelectorAll("#win").forEach((card) => {
-        //(card as HTMLElement).classList.add("bg-danger", "text-white");
-        //});
-        //highlightWinner(); // Győztes kártyák késleltetése
         if (!localStorage.getItem("gameSaved")) {
             saveGamesToLocalStorage(players); // Eredmény mentése
             localStorage.setItem("gameSaved", "true"); // Mentés megtörtént
@@ -232,11 +225,14 @@ function highlightWinner() {
     if (winners.length === 0) return;
 
     // Késleltetés, hogy minden kártya előbb megjelenjen
-
     winners.forEach(winner => {
-        winner.classList.add("pop-animation", "text-white", "border-danger");
-    });
+        
+        setTimeout(() => {
+            winner.classList.remove("popIn-animation");
+            winner.classList.add("popEffect-animation", "text-white", "border-danger", "bg-danger");
+        }, 500); // Biztosítjuk, hogy a kártyák előbb megjelenjenek "border-danger", "bg-danger" kivéve
 
+    });
 }
 
 function closeBootstrapMenuIfOpen() {
