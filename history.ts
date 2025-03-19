@@ -12,7 +12,7 @@ function renderGameHistory(): void {
 
     games.forEach((game, index) => {
         setTimeout(() => {
-            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 70); // Ne legyen túl világos
+            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 80); // Ne legyen túl világos
             const card = document.createElement("div");
             card.classList.add("card", "mb-3", "w-100");
             card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`; // HSL szín beállítása
@@ -58,11 +58,11 @@ function renderGameHistory(): void {
                 rankDiv.textContent = `${player.rank}.`;
 
                 const nameDiv = document.createElement("div");
-                nameDiv.classList.add("col-6");
+                nameDiv.classList.add("col-8");
                 nameDiv.textContent = player.name;
 
                 const pointsDiv = document.createElement("div");
-                pointsDiv.classList.add("col-4", "text-end", "fw-bold");
+                pointsDiv.classList.add("col-2", "text-end", "fw-bold");
                 pointsDiv.textContent = `${player.points}`;
 
                 listItem.appendChild(rankDiv);
