@@ -1,11 +1,24 @@
 body {
-    background-image: url('bg-vigyazz6_50x50.jpg'); /* Kép betöltése */
-    /*background-size: cover; /* Kitölti az egész képernyőt */
-    background-position: center; /* Középre igazítja */
-    background-repeat:repeat; /* Nem ismétlődik */
-    background-attachment: fixed; /* Fix háttér (nem görgetődik) */
     font-family: 'Rubik', sans-serif;
+    margin: 0;
+   /* overflow: hidden; /* Megakadályozza a görgetést */
 }
+
+body::before {
+    content: "";
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-image: url('bg-vigyazz6_50x50.jpg');
+    background-size: 50px 50px; /* Mivel ismétlődik */
+    background-repeat: repeat;
+    background-position: center;
+    transform: rotate(-5deg); /* Itt lehet állítani a forgatás szögét */
+    z-index: -1; /* Háttérbe küldi */
+}
+
 
 .rules-container {
     background: rgba(255, 255, 255, 0.85); /* Fehér, 70%-os áttetszőség */
@@ -102,6 +115,12 @@ body {
 .modal-title {
     font-size: 1rem;
 }
+
+body.modal-open {
+    overflow: hidden;
+    padding-right: 17px; /* Görgetősáv eltolása, ha szükséges */
+}
+
 #playerPrompt {
     font-size: 1.5rem; /* 1.5x nagyobb betűméret, állítható */
 }
