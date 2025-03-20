@@ -103,8 +103,6 @@ function updateIndexPlayerList() {
     checkGameOver();
 
 }
-
-// ✅ Betöltéskor frissítés
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("players-container");
     if (!container) return;
@@ -137,56 +135,47 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function startNewRound() {
     let currentIndex = 0;
+    const playerPrompt = document.getElementById("playerPrompt")!;
+    const pointsInput = document.getElementById("pointsInput")! as HTMLInputElement;
+    const saveButton = document.getElementById("savePoints")! as HTMLButtonElement;
+    const modalElement = document.getElementById("pointsModal")!;
+    const modal = new bootstrap.Modal(modalElement);
 
-    function showModalForPlayer() {
+    function updateModalForPlayer() {
         if (currentIndex >= players.length) {
+            // Ha minden játékos rögzítve van, zárjuk be a modált és mentsünk
             savePlayersToLocalStorage(players);
             updateIndexPlayerList();
+            modal.hide();
             return;
         }
 
-        const player = players[currentIndex];
-        const playerPrompt = document.getElementById("playerPrompt")!;
-        const pointsInput = document.getElementById("pointsInput")! as HTMLInputElement;
-        const saveButton = document.getElementById("savePoints")! as HTMLButtonElement;
-        const modalElement = document.getElementById("pointsModal")!;
-
-        playerPrompt.innerHTML = `${player.name}`;
+        // Frissítjük a modál tartalmát az aktuális játékos nevével
+        playerPrompt.innerHTML = `${players[currentIndex].name}`;
         pointsInput.value = ""; // Alapértelmezett érték törlése
-
-        const modal = new bootstrap.Modal(modalElement);
-        modal.show();
-
-        // Fókusz automatikus beállítása a beviteli mezőre a modál megnyitásakor
-        modalElement.addEventListener("shown.bs.modal", () => {
-            pointsInput.focus();
-        }, { once: true });
-
-        saveButton.onclick = function savePoints() {
-            const pointsToDeduct = parseInt(pointsInput.value.trim(), 10);
-            console.log(`${players[currentIndex].name} pontszáma: ${pointsToDeduct}`);
-
-            if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0) {
-                players[currentIndex].deductPoints(pointsToDeduct);
-                currentIndex++;
-                modal.hide();
-                // Ellenőrizzük, hogy a modal ténylegesen bezárult-e
-                const modalBackdrop = document.querySelector('.modal-backdrop');
-                if (modalBackdrop) {
-                    // Ha a backdrop még nem tűnt el, manuálisan eltávolítjuk
-                    document.body.classList.remove('modal-open');
-                    document.body.removeChild(modalBackdrop);
-                }
-                showModalForPlayer(); // Következő játékos megjelenítése
-            } else {
-                alert("Érvényes számot adj meg!"); // Hibakezelés
-            }
-        };
+        pointsInput.focus();
     }
 
-    showModalForPlayer();
-}
+    modalElement.addEventListener("shown.bs.modal", () => {
+        pointsInput.focus();
+    });
 
+    saveButton.onclick = function savePoints() {
+        const pointsToDeduct = parseInt(pointsInput.value.trim(), 10);
+
+        if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0 && pointsToDeduct < 100) {
+            players[currentIndex].deductPoints(pointsToDeduct);
+            currentIndex++;
+            updateModalForPlayer(); // Következő játékos adatainak betöltése
+        } else {
+            alert("Érvényes számot adj meg!"); // Hibakezelés
+        }
+    };
+
+    // Modál egyszeri megnyitása
+    modal.show();
+    updateModalForPlayer();
+}
 
 function checkGameOver() {
     const newRoundButton = document.getElementById("newRoundButton") as HTMLButtonElement;
@@ -234,7 +223,6 @@ function highlightWinner() {
 
     });
 }
-
 function closeBootstrapMenuIfOpen() {
     const menu = document.querySelector(".navbar-collapse");
     if (menu?.classList.contains("show")) {
