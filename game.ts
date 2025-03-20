@@ -163,7 +163,7 @@ function startNewRound() {
     saveButton.onclick = function savePoints() {
         const pointsToDeduct = parseInt(pointsInput.value.trim(), 10);
 
-        if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0 && pointsToDeduct < 100) {
+        if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0 && pointsToDeduct <= 171) {
             players[currentIndex].deductPoints(pointsToDeduct);
             currentIndex++;
             updateModalForPlayer(); // Következő játékos adatainak betöltése
