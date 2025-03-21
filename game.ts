@@ -1,4 +1,5 @@
 import { User } from "./user.js";
+import { initializeGame } from "./player.js"
 import { loadPlayersFromLocalStorage, saveGamesToLocalStorage, savePlayersToLocalStorage } from "./storage.js";
 declare var bootstrap: any;
 
@@ -104,6 +105,8 @@ function updateIndexPlayerList() {
 
 }
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Aktív elem:", document.activeElement);
+
     const container = document.getElementById("players-container");
     if (!container) return;
 
@@ -124,13 +127,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
         messageDiv.innerHTML = `
-        <h2 class="mb-3">Üdvözöllek! Ez a Vigyáz(z)6! játék segédje.</h2>
-        <p class="mb-3">A játékhoz legalább két játékosra lesz szükség.</p>
+        <h2 class="mb-3">Üdvözöllek! Ez a Vigyáz(z)6! játék számoló segédje.</h2>
+        <p class="mb-3">A játékhoz legalább 2 játékosra lesz szükség.</p>
         <a href="player.html" class="btn btn-primary">Tovább a játékosokhoz</a>
     `;
 
         container.before(messageDiv);
     }
+
+    const modalElement = document.getElementById("pointsModal");
+    const fallbackFocusElement = document.getElementById("newRoundButton"); // Ide kerül vissza a fókusz
+
+    modalElement?.addEventListener("hidden.bs.modal", () => {
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+    });
     updateIndexPlayerList();
 });
 function startNewRound() {
@@ -190,9 +202,18 @@ function checkGameOver() {
             localStorage.setItem("gameSaved", "true"); // Mentés megtörtént
         }
 
-        // Az "Új kör" gomb elrejtése
-        if (newRoundButton) {
-            newRoundButton.style.display = "none";
+        // Az "Új kör" gomb átalakítása "Játék indítás"-ra
+        if (newRoundButton) {    
+            // Régi eseményfigyelő eltávolítása
+            newRoundButton.replaceWith(newRoundButton.cloneNode(true)); // Ezzel új gomb jön létre
+            const newButton = document.getElementById("newRoundButton") as HTMLButtonElement;
+        
+            // Új eseményfigyelő beállítása
+            newButton.textContent = "Új játék indítás";
+            newButton.onclick = () => {
+                initializeGame();
+                location.reload(); // Oldal újratöltése
+            };
         }
     } else {
         // Ha nincs vesztes, az "Új kör" gomb maradjon látható
@@ -215,7 +236,7 @@ function highlightWinner() {
 
     // Késleltetés, hogy minden kártya előbb megjelenjen
     winners.forEach(winner => {
-        
+
         setTimeout(() => {
             winner.classList.remove("popIn-animation");
             winner.classList.add("popEffect-animation", "text-white", "border-danger", "bg-danger");

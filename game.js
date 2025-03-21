@@ -1,3 +1,4 @@
+import { initializeGame } from "./player.js";
 import { loadPlayersFromLocalStorage, saveGamesToLocalStorage, savePlayersToLocalStorage } from "./storage.js";
 let players = loadPlayersFromLocalStorage();
 // Játékos állás frissítése
@@ -70,6 +71,7 @@ function updateIndexPlayerList() {
     checkGameOver();
 }
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Aktív elem:", document.activeElement);
     const container = document.getElementById("players-container");
     if (!container)
         return;
@@ -91,12 +93,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
         messageDiv.innerHTML = `
-        <h2 class="mb-3">Üdvözöllek! Ez a Vigyáz(z)6! játék segédje.</h2>
-        <p class="mb-3">A játékhoz legalább két játékosra lesz szükség.</p>
+        <h2 class="mb-3">Üdvözöllek! Ez a Vigyáz(z)6! játék számoló segédje.</h2>
+        <p class="mb-3">A játékhoz legalább 2 játékosra lesz szükség.</p>
         <a href="player.html" class="btn btn-primary">Tovább a játékosokhoz</a>
     `;
         container.before(messageDiv);
     }
+    const modalElement = document.getElementById("pointsModal");
+    const fallbackFocusElement = document.getElementById("newRoundButton"); // Ide kerül vissza a fókusz
+    modalElement === null || modalElement === void 0 ? void 0 : modalElement.addEventListener("hidden.bs.modal", () => {
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+    });
     updateIndexPlayerList();
 });
 function startNewRound() {
@@ -147,9 +156,17 @@ function checkGameOver() {
             saveGamesToLocalStorage(players); // Eredmény mentése
             localStorage.setItem("gameSaved", "true"); // Mentés megtörtént
         }
-        // Az "Új kör" gomb elrejtése
+        // Az "Új kör" gomb átalakítása "Játék indítás"-ra
         if (newRoundButton) {
-            newRoundButton.style.display = "none";
+            // Régi eseményfigyelő eltávolítása
+            newRoundButton.replaceWith(newRoundButton.cloneNode(true)); // Ezzel új gomb jön létre
+            const newButton = document.getElementById("newRoundButton");
+            // Új eseményfigyelő beállítása
+            newButton.textContent = "Új játék indítás";
+            newButton.onclick = () => {
+                initializeGame();
+                location.reload(); // Oldal újratöltése
+            };
         }
     }
     else {
