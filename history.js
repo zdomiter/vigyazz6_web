@@ -20,16 +20,20 @@ function renderGameHistory() {
             toggleButton.setAttribute("data-bs-toggle", "collapse");
             toggleButton.setAttribute("href", `#game${index}`);
             toggleButton.innerHTML = `
-            📅<span style="color:white;">
-                ${game.timestamp.split("T")[0]}
-            </span> <br>
-                <i class="bi bi-trophy"></i>
-               <span style="float: right; text-align: right; color: white">
+                <span>
+                    📅<span style="color:white;">
+                        ${game.timestamp.split("T")[0]}
+                    </span> <br>
+                </span>
+                <i class="bi bi-chevron-right toggle-icon" style="color: white;"></i>
+                <span style="float: right; text-align: right; color: white;">
+                    <i class="bi bi-trophy me-2" style="color: white;"></i>
                     ${game.players
                 .filter(p => p.rank === 1)
                 .map(p => p.name)
                 .join(" - ")}
                 </span>
+                
             `;
             cardHeader.appendChild(toggleButton);
             const collapseDiv = document.createElement("div");
@@ -61,6 +65,23 @@ function renderGameHistory() {
             card.appendChild(cardHeader);
             card.appendChild(collapseDiv);
             container.appendChild(card);
+            setTimeout(() => {
+                const collapseElement = document.getElementById(`game${index}`);
+                if (collapseElement) {
+                    collapseElement.addEventListener("show.bs.collapse", () => {
+                        const icon = toggleButton.querySelector(".toggle-icon");
+                        if (icon) {
+                            icon.classList.replace("bi-chevron-right", "bi-chevron-down");
+                        }
+                    });
+                    collapseElement.addEventListener("hide.bs.collapse", () => {
+                        const icon = toggleButton.querySelector(".toggle-icon");
+                        if (icon) {
+                            icon.classList.replace("bi-chevron-down", "bi-chevron-right");
+                        }
+                    });
+                }
+            }, 0); // Biztosítja, hogy az elem már létezik a DOM-ban
         }, index * 100); // Egyenként jelennek meg 100ms késéssel
     });
 }

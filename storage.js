@@ -15,11 +15,11 @@ export function saveGamesToLocalStorage(players) {
     const games = storedGames ? JSON.parse(storedGames) : [];
     // Új játék létrehozása
     const newGame = {
-        timestamp: new Date().toLocaleString("hu-HU", { timeZone: "Europe/Budapest" }), // Helyi idő
+        timestamp: new Date().toLocaleString("hu-HU", { timeZone: "Europe/Budapest" }),
         players: players.map(player => ({
             name: player.name,
             points: player.points,
-            rank: player.rank // Már tárolt helyezés
+            rank: player.rank
         }))
     };
     // Hozzáadjuk az új játékot

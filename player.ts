@@ -4,7 +4,7 @@ declare var bootstrap: any;
 
 let players: User[] = loadPlayersFromLocalStorage();
 
-// ✅ Játékoslista frissítése
+// Játékoslista frissítése
 function updatePlayerList(): void {
     const playerList = document.getElementById("player-list");
     if (!playerList) return;
@@ -43,14 +43,14 @@ function updatePlayerList(): void {
 }
 
 
-// ✅ Játékos törlése
+// Játékos törlése
 function deletePlayer(index: number): void {
     players.splice(index, 1);
-    savePlayersToLocalStorage(players);
+    initializeGame();
     updatePlayerList();
 }
 
-// ✅ Új játékos hozzáadása
+// Új játékos hozzáadása
 function addPlayer(name: string) {
     const upperCaseName = name.toUpperCase();
     // 1. Levágjuk 20 karakterre és eltávolítjuk a felesleges szóközöket
@@ -68,16 +68,15 @@ function addPlayer(name: string) {
     // 3. Létrehozzuk és hozzáadjuk az új játékost
     players.push(new User(uniqueName));
 
-    savePlayersToLocalStorage(players);
+    initializeGame();
     updatePlayerList();
 }
 
 
-// ✅ Form kezelése
 document.addEventListener("DOMContentLoaded", () => {
     let modalElement = document.getElementById("storageInfoModal");
 
-    if (modalElement) { // Ellenőrizzük, hogy létezik-e a modal
+    if (modalElement) { // Adatmentési figyelmeztetés csak egyszer
         if (!localStorage.getItem("storageNoticeAccepted")) {
             let modal = new bootstrap.Modal(modalElement);
             modal.show();
@@ -114,13 +113,7 @@ function createStartButton() {
 
     // Eseménykezelő hozzáadása
     startButton.addEventListener("click", () => {
-        localStorage.removeItem("gameSaved"); // Új játék kezdetén töröljük a flag-et
-        players.forEach(player => {
-            player.points = 66; // Pontok inicializálása
-            player.previousRounds = []; // Előző játékok inicializálása
-        });
-
-        savePlayersToLocalStorage(players); // Játékosok mentése
+        initializeGame();
         window.location.href = "index.html"; // Átirányítás
     });
 
@@ -129,6 +122,16 @@ function createStartButton() {
     if (players.length >= 2) {
         container.appendChild(startButton);
     }
+}
+
+function initializeGame() {
+    localStorage.removeItem("gameSaved"); // Új játék kezdetén töröljük a flag-et
+        players.forEach(player => {
+            player.points = 66; // Pontok inicializálása
+            player.previousRounds = []; // Előző játékok inicializálása
+        });
+
+        savePlayersToLocalStorage(players); // Játékosok mentése
 }
 
 function togglePlayerForm(): void {
