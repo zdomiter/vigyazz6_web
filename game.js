@@ -71,7 +71,6 @@ function updateIndexPlayerList() {
     checkGameOver();
 }
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("Aktív elem:", document.activeElement);
     const container = document.getElementById("players-container");
     if (!container)
         return;
@@ -80,6 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
     newRoundButton.id = "newRoundButton";
     newRoundButton.textContent = "Új kör";
     newRoundButton.classList.add("btn", "btn-primary", "mb-3");
+    if (newRoundButton) {
+        setInterval(() => {
+            newRoundButton.classList.add("pulsing"); // Pulzálás bekapcsolása
+            setTimeout(() => {
+                newRoundButton.classList.remove("pulsing"); // 1 másodperc múlva kikapcsolja
+            }, 500);
+        }, 5000); // 3 másodpercenként indul
+    }
     newRoundButton.onclick = () => {
         closeBootstrapMenuIfOpen(); // Menü bezárása
         startNewRound();
@@ -163,6 +170,14 @@ function checkGameOver() {
             const newButton = document.getElementById("newRoundButton");
             // Új eseményfigyelő beállítása
             newButton.textContent = "Új játék indítás";
+            if (newButton) {
+                setInterval(() => {
+                    newButton.classList.add("pulsing"); // Pulzálás bekapcsolása
+                    setTimeout(() => {
+                        newButton.classList.remove("pulsing"); // 1 másodperc múlva kikapcsolja
+                    }, 1000);
+                }, 5000); // 3 másodpercenként indul
+            }
             newButton.onclick = () => {
                 initializeGame();
                 location.reload(); // Oldal újratöltése
