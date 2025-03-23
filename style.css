@@ -1,7 +1,7 @@
 body {
     font-family: 'Rubik', sans-serif;
     margin: 0;
-   /* overflow: hidden; /* Megakadályozza a görgetést */
+   
 }
 
 body::before {
@@ -17,6 +17,27 @@ body::before {
     background-position: center;
     transform: rotate(-5deg); /* Itt lehet állítani a forgatás szögét */
     z-index: -1; /* Háttérbe küldi */
+}
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#main-content {
+    flex: 1; /* Kitölti a maradék helyet, hogy a footer leérjen az aljára */
+    padding-bottom: 30px; /* Footer magasságának megfelelő alsó térköz */
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #304ea4;
+    text-align: center;
+    padding: 4px;
+    font-size: 0.75rem; /* 75%-ra csökkentett betűméret */
+    color: rgb(200, 200, 255); /* Kevésbé rikító fehér */
 }
 
 
@@ -34,8 +55,8 @@ body::before {
         margin-right: auto;
     }
 }
-
-.navbar.bg-dark {
+/*.navbar.bg-dark*/
+.bg-dark {
     background-color: #304ea4 !important;
 }
 .btn-primary {
