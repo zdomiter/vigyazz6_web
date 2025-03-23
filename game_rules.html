@@ -1,100 +1,116 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Játékszabály</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Vigyáz(z) 6! Játékszabály</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <img src="okorfej_feher_100.png" alt="Ökörfej ikon" width="25" height="25" class="d-inline-block align-text-top">
-                Vigyázz (6)!
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.html">
-                            <i class="bi bi-6-square"></i> Játék
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="player.html">
-                            <i class="bi bi-person-vcard"></i> Játékosok
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="history.html">
-                            <i class="bi bi-clock-history"></i> Előzmények
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="game_rules.html">
-                            <i class="bi bi-file-text"></i> Játékszabály
-                        </a>
-                    </li>
-                </ul>
+    <div id="main-content">
+        <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="okorfej_feher_100.png" alt="Ökörfej ikon" width="25" height="25"
+                        class="d-inline-block align-text-top">
+                    Vigyáz(z) 6!
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.html">
+                                <i class="bi bi-6-square"></i> Játék
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="player.html">
+                                <i class="bi bi-person-vcard"></i> Játékosok
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="history.html">
+                                <i class="bi bi-clock-history"></i> Előzmények
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="game_rules.html">
+                                <i class="bi bi-file-text"></i> Játékszabály
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+        <div class="rules-container fullscreen-mobile">
+            <h1 class="text-center mb-4">Játékszabály</h1>
+
+            <h2 class="mb-3">A játék célja</h2>
+            <p class="mb-3">
+                A játék során minden játékos igyekszik elkerülni, hogy túl sok büntetőpontot érő lapot kelljen
+                felvennie.
+                A cél az, hogy a lehető legkevesebb ökörfej legyen nálad a játék végére.
+            </p>
+
+            <h2 class="mb-3">A játék előkészítése</h2>
+            <ul class="mb-3">
+                <li>A paklit alaposan meg kell keverni.</li>
+                <li>Minden játékos kap 10 lapot.</li>
+                <li>Négy lapot felfordítunk, ezek a kezdő sorokat alkotják.</li>
+            </ul>
+
+            <h2 class="mb-3">A játék menete</h2>
+            <p class="mb-3">
+                A játék körökből áll. Minden körben a játékosok egyszerre választanak egy lapot a kezükből, majd azokat
+                egyszerre felfedik és a legkisebbtől kezdve a szabályok szerint elhelyezik.
+            </p>
+
+            <h3 class="mb-2">Lapkiosztás szabályai:</h3>
+            <ul class="mb-3">
+                <li>A lapokat mindig növekvő számsorrendben kell elhelyezni.</li>
+                <li>A kiválasztott lapot abba a sorba kell tenni, ahol a legkisebb a különbség a meglévő lap és a
+                    lehelyezett lap között.</li>
+                <li>Ha egy sorba kerülne a hatodik lap, a játékosnak fel kell vennie az egész sort, és az új lap lesz az
+                    új kezdőkártya.</li>
+            </ul>
+
+            <h2 class="mb-3">Büntetőpontok és a játék vége</h2>
+            <p class="mb-3">
+                Minden kártyán található egy bizonyos számú ökörfej, ami büntetőpontként számít. A játék végén az nyer,
+                akinek a legkevesebb pontja van.
+            </p>
+
+            <h3 class="mb-2">Fontos:</h3>
+            <ul class="mb-3">
+                <li>A játék során mindenki egyszerre választ és helyez le lapot.</li>
+                <li>A stratégia kulcsfontosságú: figyelj a többiekre is, ne csak a saját lapjaidra!</li>
+            </ul>
+
+            <h2 class="mb-3">Játékadatok</h2>
+            <p class="mb-3"><strong>Ajánlott korosztály:</strong> 8 éves kortól</p>
+            <p class="mb-3"><strong>Játékosok száma:</strong> 2-10 fő</p>
+            <p class="mb-3"><strong>Játékidő:</strong> Kb. 45 perc</p>
+            <p><strong>Nehézségi szint:</strong> Könnyen tanulható, de stratégiai gondolkodást igényel</p>
+        </div>
     </div>
-    <div class="rules-container fullscreen-mobile">
-        <h1 class="text-center mb-4">Játékszabály</h1>
-    
-        <h2 class="mb-3">A játék célja</h2>
-        <p class="mb-3">
-            A játék során minden játékos igyekszik elkerülni, hogy túl sok büntetőpontot érő lapot kelljen felvennie. 
-            A cél az, hogy a lehető legkevesebb ökörfej legyen nálad a játék végére.
-        </p>
-    
-        <h2 class="mb-3">A játék előkészítése</h2>
-        <ul class="mb-3">
-            <li>A paklit alaposan meg kell keverni.</li>
-            <li>Minden játékos kap 10 lapot.</li>
-            <li>Négy lapot felfordítunk, ezek a kezdő sorokat alkotják.</li>
-        </ul>
-    
-        <h2 class="mb-3">A játék menete</h2>
-        <p class="mb-3">
-            A játék körökből áll. Minden körben a játékosok egyszerre választanak egy lapot a kezükből, majd azokat egyszerre felfedik és a legkisebbtől kezdve a szabályok szerint elhelyezik.
-        </p>
-    
-        <h3 class="mb-2">Lapkiosztás szabályai:</h3>
-        <ul class="mb-3">
-            <li>A lapokat mindig növekvő számsorrendben kell elhelyezni.</li>
-            <li>A kiválasztott lapot abba a sorba kell tenni, ahol a legkisebb a különbség a meglévő lap és a lehelyezett lap között.</li>
-            <li>Ha egy sorba kerülne a hatodik lap, a játékosnak fel kell vennie az egész sort, és az új lap lesz az új kezdőkártya.</li>
-        </ul>
-    
-        <h2 class="mb-3">Büntetőpontok és a játék vége</h2>
-        <p class="mb-3">
-            Minden kártyán található egy bizonyos számú ökörfej, ami büntetőpontként számít. A játék végén az nyer, akinek a legkevesebb pontja van.
-        </p>
-    
-        <h3 class="mb-2">Fontos:</h3>
-        <ul class="mb-3">
-            <li>A játék során mindenki egyszerre választ és helyez le lapot.</li>
-            <li>A stratégia kulcsfontosságú: figyelj a többiekre is, ne csak a saját lapjaidra!</li>
-        </ul>
-    
-        <h2 class="mb-3">Játékadatok</h2>
-        <p class="mb-3"><strong>Ajánlott korosztály:</strong> 8 éves kortól</p>
-        <p class="mb-3"><strong>Játékosok száma:</strong> 2-10 fő</p>
-        <p class="mb-3"><strong>Játékidő:</strong> Kb. 45 perc</p>
-        <p><strong>Nehézségi szint:</strong> Könnyen tanulható, de stratégiai gondolkodást igényel</p>
-    </div>
-    
+    <footer class="position-fixed bottom-0 w-100 bg-dark text-center py-1"
+        style="font-size: 0.75rem; color: rgb(200, 200, 255);">
+        &copy; 2025 Domiter Zoltán – Minden jog fenntartva.
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 </body>
+
 </html>
