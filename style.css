@@ -187,3 +187,17 @@ body.modal-open {
 .pulsing {
     animation: pulse 0.5s infinite;
 }
+.language-picker {
+    margin: auto;
+}
+
+.dropdown-toggle {
+    background-color: #304ea4 !important;
+    border: none;
+    color: white;
+    font-size: 1rem;
+}
+
+.dropdown-menu {
+    min-width: 120px;
+}

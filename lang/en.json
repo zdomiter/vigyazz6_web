@@ -1,0 +1,15 @@
+{
+    "titles": {
+        "game": "Take 6!",
+        "players": "Take 6! - Players",
+        "history": "Take 6! - History",
+        "rules": "Take 6! - Rules"
+    },
+    "nav": {
+        "game": "Game",
+        "players": "Players",
+        "history": "History",
+        "rules": "Rules",
+        "brand": "Take 6!"
+    }
+}

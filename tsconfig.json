@@ -21,7 +21,8 @@
         "./player.ts",
         "./storage.ts",
         "./user.ts",
-        "./history.ts"
+        "./history.ts",
+        "./language.ts"
     ],
     "exclude": [
         "./"
