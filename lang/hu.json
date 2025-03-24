@@ -1,0 +1,15 @@
+{
+    "titles": {
+        "game": "Vigyáz(z) 6!",
+        "players": "Vigyáz(z) 6! - Játékosok",
+        "history": "Vigyáz(z) 6! - Előzmények",
+        "rules": "Vigyáz(z) 6!! - Játékszabály"
+    },
+    "nav": {
+        "game": "Játék",
+        "players": "Játékosok",
+        "history": "Előzmények",
+        "rules": "Játékszabály",
+        "brand": "Vigyáz(z) 6!"
+    }
+}
