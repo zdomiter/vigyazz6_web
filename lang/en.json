@@ -1,15 +1,20 @@
 {
     "titles": {
-        "game": "Take 6!",
-        "players": "Take 6! - Players",
-        "history": "Take 6! - History",
-        "rules": "Take 6! - Rules"
+        "game": "Take 5! – Game",
+        "players": "Take 5! – Players",
+        "history": "Take 5! – History",
+        "rules": "Take 5! – Rules"
     },
     "nav": {
         "game": "Game",
         "players": "Players",
         "history": "History",
         "rules": "Rules",
-        "brand": "Take 6!"
+        "brand": "Take 5!"
+    },
+    "modal": {
+        "title": "How many points did you collect this round?",
+        "playerPrompt": "Player's points:",
+        "saveButton": "Save"
     }
 }

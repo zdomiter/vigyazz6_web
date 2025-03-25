@@ -1,0 +1,20 @@
+{
+    "titles": {
+        "game": "Nimm 6! – Spiel",
+        "players": "Nimm 6! – Spieler",
+        "history": "Nimm 6! – Verlauf",
+        "rules": "Nimm 6! – Regeln"
+    },
+    "nav": {
+        "game": "Spiel",
+        "players": "Spieler",
+        "history": "Verlauf",
+        "rules": "Regeln",
+        "brand": "Nimm 6!"
+    },
+    "modal": {
+        "title": "Wie viele Punkte hast du in dieser Runde gesammelt?",
+        "playerPrompt": "Spieler Punkte:",
+        "saveButton": "Speichern"
+    }
+}

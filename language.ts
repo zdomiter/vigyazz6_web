@@ -49,13 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (pageId && data.titles[pageId]) {
                     document.title = data.titles[pageId];
                 }
-    
+
                 // Menü elemek frissítése
                 document.getElementById("nav-game")!.textContent = data.nav.game;
                 document.getElementById("nav-players")!.textContent = data.nav.players;
                 document.getElementById("nav-history")!.textContent = data.nav.history;
                 document.getElementById("nav-rules")!.textContent = data.nav.rules;
                 document.getElementById("nav-brand")!.textContent = data.nav.brand;
+
+                document.getElementById("pointsModalLabel")!.textContent = data.modal.title;
+                document.getElementById("playerPrompt")!.textContent = data.modal.playerPrompt;
+                document.getElementById("savePoints")!.textContent = data.modal.saveButton;
             })
             .catch(error => console.error("Hiba a fordítás betöltésekor:", error));
     }
