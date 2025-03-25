@@ -1,6 +1,7 @@
 import { User } from "./user.js";
 import { initializeGame } from "./player.js"
 import { loadPlayersFromLocalStorage, saveGamesToLocalStorage, savePlayersToLocalStorage } from "./storage.js";
+import { currentLanguageData } from "./language.js";
 declare var bootstrap: any;
 
 interface GameResult {
@@ -134,10 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
         messageDiv.innerHTML = `
-        <h1 class="mb-3">Vigyáz(z)6! pontszámoló</h1>
-        <h2 class="mb-3">Segít a körönkénti pontok rögzítésében és a játék végeredményének számításában.</h2>
-        <p class="mb-3">A játékhoz legalább 2 játékosra lesz szükség.</p>
-        <a href="player.html" class="btn btn-primary">Tovább a játékosokhoz</a>
+        <h1 id="gameTitle" class="mb-3"></h1>
+        <h2 id="gameDescription" class="mb-3"></h2>
+        <p id="minPlayersRequired" class="mb-3"></p>
+        <a id="goToPlayers" href="player.html" class="btn btn-primary"></a>
     `;
 
         container.before(messageDiv);
@@ -188,9 +189,11 @@ function startNewRound() {
             currentIndex++;
             updateModalForPlayer(); // Következő játékos adatainak betöltése
         } else {
+            const alertMessage = currentLanguageData.errors?.invalidNumber
             alert("Érvényes számot adj meg!"); // Hibakezelés
         }
     };
+  
 
     // Modál egyszeri megnyitása
     modal.show();

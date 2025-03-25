@@ -1,21 +1,39 @@
 {
     "titles": {
-        "game": "Nimm 6! – Spiel",
-        "players": "Nimm 6! – Spieler",
-        "history": "Nimm 6! – Verlauf",
-        "rules": "Nimm 6! – Regeln"
+        "game": "6 Nimmt! – Spiel",
+        "players": "6 Nimmt! – Spieler",
+        "history": "6 Nimmt! – Verlauf",
+        "rules": "6 Nimmt! – Regeln"
     },
     "nav": {
         "game": "Spiel",
         "players": "Spieler",
         "history": "Verlauf",
         "rules": "Regeln",
-        "brand": "Nimm 6!"
+        "brand": "6 Nimmt!"
     },
     "modal": {
         "title": "Wie viele Punkte hast du in dieser Runde gesammelt?",
         "playerPrompt": "Spieler Punkte:",
         "saveButton": "Speichern"
     },
-    "footer": "&copy; 2025 Zoltan Domiter – Alle Rechte vorbehalten."
+    "footer": "\u00A9 2025 Zoltan Domiter – Alle Rechte vorbehalten.",
+    "buttons": {
+        "newRound": "de Új kör",
+        "startNewGame": "de Új játék indítás",
+        "savePoints": "de Pontok mentése"
+    },
+    "messages": {
+        "gameTitle": "de Vigyáz(z)6! pontszámoló",
+        "gameDescription": "de Segít a körönkénti pontok rögzítésében és a játék végeredményének számításában.",
+        "minPlayersRequired": "de A játékhoz legalább 2 játékosra lesz szükség.",
+        "goToPlayers": "de Tovább a játékosokhoz"
+    },
+    "errors": {
+        "invalidNumber": "de Érvényes számot adj meg!"
+    },
+    "modals": {
+        "enterPoints": "de Add meg a pontokat:",
+        "playerTurn": "de Következő játékos: "
+    }
 }

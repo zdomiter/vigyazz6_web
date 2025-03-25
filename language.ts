@@ -1,6 +1,9 @@
+export let currentLanguageData: any = {}; // Ide töltjük be a fordításokat
+
 document.addEventListener("DOMContentLoaded", () => {
     const langButton = document.getElementById("selected-lang") as HTMLElement;
     const dropdownItems = document.querySelectorAll(".dropdown-item");
+    
 
     // LocalStorage-ból vesszük az alapértelmezett nyelvet, ha nincs, akkor "en"
     let savedLang = localStorage.getItem("lang") || "en";
@@ -39,12 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Oldal szövegének frissítése
         loadLanguage(lang);
     }
-
     function loadLanguage(lang: string) {
         fetch(`lang/${lang}.json`)
             .then(response => response.json())
             .then(data => {
                 // Az oldal címének frissítése az aktuális oldal alapján
+                currentLanguageData = data
                 const pageId = document.body.getAttribute("data-page"); // pl. home, game, players stb.
                 if (pageId && data.titles[pageId]) {
                     document.title = data.titles[pageId];
@@ -62,6 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("savePoints")!.textContent = data.modal.saveButton;
 
                 document.querySelector("footer")!.textContent = data.footer;
+
+                document.getElementById("newRoundButton")!.textContent = data.buttons.newRound;
+                document.getElementById("savePoints")!.textContent = data.buttons.savePoints;
+                
+                document.getElementById("gameTitle")!.textContent = data.messages.gameTitle;
+                document.getElementById("gameDescription")!.textContent = data.messages.gameDescription;
+                document.getElementById("enterPoints")!.textContent = data.modals.enterPoints;
+
+                
             })
             .catch(error => console.error("Hiba a fordítás betöltésekor:", error));
     }

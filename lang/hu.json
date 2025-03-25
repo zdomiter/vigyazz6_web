@@ -17,5 +17,23 @@
         "playerPrompt": "Játékos pontjai:",
         "saveButton": "Mentés"
     },
-    "footer": "&copy; 2025 Domiter Zoltán – Minden jog fenntartva."
+    "footer": "\u00A9 2025 Domiter Zoltán – Minden jog fenntartva.",
+    "buttons": {
+        "newRound": "Új kör",
+        "startNewGame": "Új játék indítás",
+        "savePoints": "Pontok mentése"
+    },
+    "messages": {
+        "gameTitle": "Vigyáz(z)6! pontszámoló",
+        "gameDescription": "Segít a körönkénti pontok rögzítésében és a játék végeredményének számításában.",
+        "minPlayersRequired": "A játékhoz legalább 2 játékosra lesz szükség.",
+        "goToPlayers": "Tovább a játékosokhoz"
+    },
+    "errors": {
+        "invalidNumber": "Érvényes számot adj meg!"
+    },
+    "modals": {
+        "enterPoints": "Add meg a pontokat:",
+        "playerTurn": "Következő játékos: "
+    }
 }

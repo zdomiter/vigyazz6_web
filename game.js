@@ -1,5 +1,6 @@
 import { initializeGame } from "./player.js";
 import { loadPlayersFromLocalStorage, saveGamesToLocalStorage, savePlayersToLocalStorage } from "./storage.js";
+import { currentLanguageData } from "./language.js";
 let players = loadPlayersFromLocalStorage();
 // Játékos állás frissítése
 function assignPlayerRanks(players) {
@@ -100,10 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
         messageDiv.innerHTML = `
-        <h1 class="mb-3">Vigyáz(z)6! pontszámoló</h1>
-        <h2 class="mb-3">Segít a körönkénti pontok rögzítésében és a játék végeredményének számításában.</h2>
-        <p class="mb-3">A játékhoz legalább 2 játékosra lesz szükség.</p>
-        <a href="player.html" class="btn btn-primary">Tovább a játékosokhoz</a>
+        <h1 id="gameTitle" class="mb-3"></h1>
+        <h2 id="gameDescription" class="mb-3"></h2>
+        <p id="minPlayersRequired" class="mb-3"></p>
+        <a id="goToPlayers" href="player.html" class="btn btn-primary"></a>
     `;
         container.before(messageDiv);
     }
@@ -140,6 +141,7 @@ function startNewRound() {
         pointsInput.focus();
     });
     saveButton.onclick = function savePoints() {
+        var _a;
         const pointsToDeduct = parseInt(pointsInput.value.trim(), 10);
         if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0 && pointsToDeduct <= 171) {
             players[currentIndex].deductPoints(pointsToDeduct);
@@ -147,6 +149,7 @@ function startNewRound() {
             updateModalForPlayer(); // Következő játékos adatainak betöltése
         }
         else {
+            const alertMessage = (_a = currentLanguageData.errors) === null || _a === void 0 ? void 0 : _a.invalidNumber;
             alert("Érvényes számot adj meg!"); // Hibakezelés
         }
     };
