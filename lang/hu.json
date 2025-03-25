@@ -11,5 +11,10 @@
         "history": "Előzmények",
         "rules": "Játékszabály",
         "brand": "Vigyáz(z) 6!"
+    },
+    "modal": {
+        "title": "Hány pontot gyűjtött ebben a körben?",
+        "playerPrompt": "Játékos pontjai:",
+        "saveButton": "Mentés"
     }
 }
