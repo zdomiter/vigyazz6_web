@@ -16,5 +16,6 @@
         "title": "Hány pontot gyűjtött ebben a körben?",
         "playerPrompt": "Játékos pontjai:",
         "saveButton": "Mentés"
-    }
+    },
+    "footer": "&copy; 2025 Domiter Zoltán – Minden jog fenntartva."
 }

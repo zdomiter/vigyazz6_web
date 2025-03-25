@@ -16,5 +16,6 @@
         "title": "Wie viele Punkte hast du in dieser Runde gesammelt?",
         "playerPrompt": "Spieler Punkte:",
         "saveButton": "Speichern"
-    }
+    },
+    "footer": "&copy; 2025 Zoltan Domiter – Alle Rechte vorbehalten."
 }
