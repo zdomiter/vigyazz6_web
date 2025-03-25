@@ -60,6 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("pointsModalLabel")!.textContent = data.modal.title;
                 document.getElementById("playerPrompt")!.textContent = data.modal.playerPrompt;
                 document.getElementById("savePoints")!.textContent = data.modal.saveButton;
+
+                document.querySelector("footer")!.textContent = data.footer;
             })
             .catch(error => console.error("Hiba a fordítás betöltésekor:", error));
     }
