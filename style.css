@@ -55,7 +55,6 @@ footer {
         margin-right: auto;
     }
 }
-/*.navbar.bg-dark*/
 .bg-dark {
     background-color: #304ea4 !important;
 }
@@ -188,7 +187,8 @@ body.modal-open {
     animation: pulse 0.5s infinite;
 }
 .language-picker {
-    margin: auto;
+    margin-left: auto;
+    padding-right: inherit;
 }
 
 .dropdown-toggle {
