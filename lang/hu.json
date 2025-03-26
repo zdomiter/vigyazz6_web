@@ -13,8 +13,7 @@
         "brand": "Vigyáz(z) 6!"
     },
     "modal": {
-        "title": "Hány pontot gyűjtött ebben a körben?",
-        "playerPrompt": "Játékos pontjai:"
+        "title": "Hány pontot gyűjtött ebben a körben?"
     },
     "footer": "\u00A9 2025 Domiter Zoltán – Minden jog fenntartva.",
     "buttons": {
@@ -35,5 +34,12 @@
     "modals": {
         "enterPoints": "Add meg a pontokat:",
         "playerTurn": "Következő játékos: "
+    },
+    "placeholders": {
+        "newPlayer": "Új név megadása"
+    },
+    "storageInfoModal": {   
+        "storageInfoLabel": "Adatmentés a böngészőben"
     }
+
 }
