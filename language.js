@@ -55,23 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
             updateElementText("nav-history", data.nav.history);
             updateElementText("nav-rules", data.nav.rules);
             updateElementText("nav-brand", data.nav.brand);
-            document.getElementById("playerPrompt").textContent = data.modal.playerPrompt;
             document.querySelector("footer").textContent = data.footer;
-            updateElementText("player-h2", data.messages.playersTitle);
             if (pageId === "game") {
                 updateElementText("gameTitle", data.messages.gameTitle);
                 updateElementText("gameDescription", data.messages.gameDescription);
                 updateElementText("goToPlayers", data.messages.goToPlayers);
                 updateElementText("enterPoints", data.modals.enterPoints);
                 updateElementText("pointsModalLabel", data.modal.title);
-                updateElementText("playerPrompt", data.modal.playerPrompt);
                 updateElementText("newRoundButton", data.buttons.newRound);
                 updateElementText("savePoints", data.buttons.savePoints);
             }
             else if (pageId === "players") {
                 updateElementText("player-h2", data.messages.playersTitle);
-                updateElementText("playersTitle", data.messages.playersTitle);
-                updateElementText("addPlayerButton", data.buttons.addPlayer);
+                document.getElementById("new-player").setAttribute("placeholder", data.placeholders.newPlayer);
+                updateElementText("storageInfoLabel", data.storageInfoModal.storageInfoLabel);
+                //updateElementText("addPlayerButton", data.buttons.addPlayer);
             }
             else if (pageId === "history") {
                 updateElementText("historyTitle", data.messages.historyTitle);

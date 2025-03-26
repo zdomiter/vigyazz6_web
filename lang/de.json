@@ -35,5 +35,11 @@
     "modals": {
         "enterPoints": "de Add meg a pontokat:",
         "playerTurn": "de Következő játékos: "
+    },
+    "placeholders": {
+        "newPlayer": "de Új név megadása"
+    },
+    "storageInfoModal": {   
+        "storageInfoLabel": "de Adatmentés a böngészőben"
     }
 }
