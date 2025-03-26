@@ -150,7 +150,7 @@ function startNewRound() {
         }
         else {
             const alertMessage = (_a = currentLanguageData.errors) === null || _a === void 0 ? void 0 : _a.invalidNumber;
-            alert("Érvényes számot adj meg!"); // Hibakezelés
+            alert(alertMessage); // Hibakezelés
         }
     };
     // Modál egyszeri megnyitása

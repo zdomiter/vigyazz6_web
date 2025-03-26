@@ -190,7 +190,7 @@ function startNewRound() {
             updateModalForPlayer(); // Következő játékos adatainak betöltése
         } else {
             const alertMessage = currentLanguageData.errors?.invalidNumber
-            alert("Érvényes számot adj meg!"); // Hibakezelés
+            alert(alertMessage); // Hibakezelés
         }
     };
   
