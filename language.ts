@@ -3,10 +3,19 @@ export let currentLanguageData: any = {}; // Ide töltjük be a fordításokat
 document.addEventListener("DOMContentLoaded", () => {
     const langButton = document.getElementById("selected-lang") as HTMLElement;
     const dropdownItems = document.querySelectorAll(".dropdown-item");
-    
 
-    // LocalStorage-ból vesszük az alapértelmezett nyelvet, ha nincs, akkor "en"
-    let savedLang = localStorage.getItem("lang") || "en";
+
+    // Támogatott nyelvek listája
+    const supportedLangs = ["en", "de", "hu"];
+
+    // Böngésző nyelvének lekérése
+    const browserLang = navigator.language.split("-")[0]; // Az elsődleges nyelvkódot vesszük (pl. "hu-HU" → "hu")
+
+    // Ha támogatott nyelv, akkor azt használjuk, különben "en"
+    const defaultLang = supportedLangs.includes(browserLang) ? browserLang : "en";
+
+    // LocalStorage-ból vesszük a nyelvet, ha nincs, akkor a detektált alapértelmezettet használjuk
+    const savedLang = localStorage.getItem("lang") || defaultLang;
     setLanguage(savedLang);
 
     dropdownItems.forEach((item) => {
@@ -53,29 +62,55 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.title = data.titles[pageId];
                 }
 
-                // Menü elemek frissítése
-                document.getElementById("nav-game")!.textContent = data.nav.game;
-                document.getElementById("nav-players")!.textContent = data.nav.players;
-                document.getElementById("nav-history")!.textContent = data.nav.history;
-                document.getElementById("nav-rules")!.textContent = data.nav.rules;
-                document.getElementById("nav-brand")!.textContent = data.nav.brand;
+                // 🔹 Közös menüelemek frissítése
+                updateElementText("nav-game", data.nav.game);
+                updateElementText("nav-players", data.nav.players);
+                updateElementText("nav-history", data.nav.history);
+                updateElementText("nav-rules", data.nav.rules);
+                updateElementText("nav-brand", data.nav.brand);
 
-                document.getElementById("pointsModalLabel")!.textContent = data.modal.title;
                 document.getElementById("playerPrompt")!.textContent = data.modal.playerPrompt;
-                document.getElementById("savePoints")!.textContent = data.modal.saveButton;
 
                 document.querySelector("footer")!.textContent = data.footer;
 
-                document.getElementById("newRoundButton")!.textContent = data.buttons.newRound;
-                document.getElementById("savePoints")!.textContent = data.buttons.savePoints;
-                
-                document.getElementById("gameTitle")!.textContent = data.messages.gameTitle;
-                document.getElementById("gameDescription")!.textContent = data.messages.gameDescription;
-                document.getElementById("enterPoints")!.textContent = data.modals.enterPoints;
+                updateElementText("player-h2", data.messages.playersTitle);
 
-                
+                if (pageId === "game") {
+                    updateElementText("gameTitle", data.messages.gameTitle);
+                    updateElementText("gameDescription", data.messages.gameDescription);
+                    updateElementText("goToPlayers", data.messages.goToPlayers);
+                    updateElementText("enterPoints", data.modals.enterPoints);
+                    updateElementText("pointsModalLabel", data.modal.title);
+                    updateElementText("playerPrompt", data.modal.playerPrompt);
+                    updateElementText("newRoundButton", data.buttons.newRound);
+                    updateElementText("savePoints", data.buttons.savePoints);
+
+                } else if (pageId === "players") {
+                    updateElementText("player-h2", data.messages.playersTitle);
+                    
+                    
+                    updateElementText("playersTitle", data.messages.playersTitle);
+                    updateElementText("addPlayerButton", data.buttons.addPlayer);
+                } else if (pageId === "history") {
+                    updateElementText("historyTitle", data.messages.historyTitle);
+                    updateElementText("clearHistoryButton", data.buttons.clearHistory);
+                } else if (pageId === "rules") {
+                    updateElementText("rulesTitle", data.messages.rulesTitle);
+                    updateElementText("rulesContent", data.messages.rulesContent);
+                }
+
             })
             .catch(error => console.error("Hiba a fordítás betöltésekor:", error));
+    }
+    /**
+    * 🔹 Segédfüggvény az elem szövegének beállításához
+    * - Csak akkor állítja be a szöveget, ha az elem létezik, így elkerülhetők a hibák.
+    */
+    function updateElementText(elementId: string, text: string) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.textContent = text;
+        }
     }
 });
 

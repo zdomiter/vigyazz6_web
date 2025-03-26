@@ -14,8 +14,7 @@
     },
     "modal": {
         "title": "Hány pontot gyűjtött ebben a körben?",
-        "playerPrompt": "Játékos pontjai:",
-        "saveButton": "Mentés"
+        "playerPrompt": "Játékos pontjai:"
     },
     "footer": "\u00A9 2025 Domiter Zoltán – Minden jog fenntartva.",
     "buttons": {
@@ -25,6 +24,7 @@
     },
     "messages": {
         "gameTitle": "Vigyáz(z)6! pontszámoló",
+        "playersTitle": "Játékosok",
         "gameDescription": "Segít a körönkénti pontok rögzítésében és a játék végeredményének számításában.",
         "minPlayersRequired": "A játékhoz legalább 2 játékosra lesz szükség.",
         "goToPlayers": "Tovább a játékosokhoz"

@@ -25,9 +25,13 @@
     },
     "messages": {
         "gameTitle": "en Vigyáz(z)6! pontszámoló",
+        "playersTitle": "Players",
         "gameDescription": "en Segít a körönkénti pontok rögzítésében és a játék végeredményének számításában.",
         "minPlayersRequired": "en A játékhoz legalább 2 játékosra lesz szükség.",
         "validNumberRequired": "en Érvényes számot adj meg!"
+    },
+    "errors": {
+        "invalidNumber": "en Érvényes számot adj meg!"
     },
     "modals": {
         "enterPoints": "en Add meg a pontokat:",
