@@ -13,33 +13,95 @@
         "brand": "6 Nimmt!"
     },
     "modal": {
-        "title": "Wie viele Punkte hast du in dieser Runde gesammelt?",
-        "playerPrompt": "Spieler Punkte:",
-        "saveButton": "Speichern"
+        "title": "Wie viele Punkte wurden in dieser Runde gesammelt?"
     },
-    "footer": "\u00A9 2025 Zoltan Domiter – Alle Rechte vorbehalten.",
+    "footer": "\u00A9 2025 Domiter Zoltán – Alle Rechte vorbehalten.",
     "buttons": {
-        "newRound": "de Új kör",
-        "startNewGame": "de Új játék indítás",
-        "savePoints": "de Pontok mentése"
+        "newRound": "Neue Runde",
+        "startNewGame": "Neues Spiel starten",
+        "savePoints": "Punkte speichern",
+        "startGame": "Spiel starten"
     },
     "messages": {
-        "gameTitle": "de Vigyáz(z)6! pontszámoló",
-        "gameDescription": "de Segít a körönkénti pontok rögzítésében és a játék végeredményének számításában.",
-        "minPlayersRequired": "de A játékhoz legalább 2 játékosra lesz szükség.",
-        "goToPlayers": "de Tovább a játékosokhoz"
+        "gameTitle": "6 Nimmt! Punktezähler",
+        "playersTitle": "Spieler",
+        "gameDescription": "Hilft, Rundenpunkte aufzuzeichnen und das Endergebnis zu berechnen.",
+        "minPlayersRequired": "Das Spiel erfordert mindestens 2 Spieler.",
+        "goToPlayers": "Zu den Spielern"
     },
     "errors": {
-        "invalidNumber": "de Érvényes számot adj meg!"
+        "invalidNumber": "Bitte gib eine gültige Zahl ein!"
     },
     "modals": {
-        "enterPoints": "de Add meg a pontokat:",
-        "playerTurn": "de Következő játékos: "
+        "enterPoints": "Punkte eingeben:",
+        "playerTurn": "Nächster Spieler: "
     },
     "placeholders": {
-        "newPlayer": "de Új név megadása"
+        "newPlayer": "Neuen Namen eingeben"
     },
-    "storageInfoModal": {   
-        "storageInfoLabel": "de Adatmentés a böngészőben"
+    "storageInfoModal": {
+        "storageInfoLabel": "Datenspeicherung im Browser",
+        "storageInfoBody": "Diese Anwendung speichert den Spielstand im Browser. Die Daten <strong>werden nicht auf einem Server gespeichert</strong> und sind nur auf diesem Gerät verfügbar. Wenn du deine Browserdaten löschst, wird auch der gespeicherte Spielstand gelöscht."
+    },
+    "rules": {
+        "title": "Spielregeln",
+        "sections": [
+            {
+                "title": "Ziel des Spiels",
+                "content": "Die Spieler versuchen zu vermeiden, zu viele Karten mit Strafpunkten zu sammeln. Ziel ist es, am Ende des Spiels möglichst wenige Hornochsen zu haben."
+            },
+            {
+                "title": "Spielvorbereitung",
+                "list": [
+                    "Das Deck gründlich mischen.",
+                    "Jeder Spieler erhält 10 Karten.",
+                    "Vier Karten werden offen ausgelegt und bilden die Startreihen."
+                ]
+            },
+            {
+                "title": "Spielablauf",
+                "content": "Das Spiel besteht aus mehreren Runden. In jeder Runde wählen die Spieler gleichzeitig eine Karte aus ihrer Hand, decken sie gleichzeitig auf und legen sie in aufsteigender Reihenfolge gemäß den Regeln ab."
+            },
+            {
+                "title": "Wie wird eine Karte abgelegt?",
+                "list": [
+                    "Die Karten müssen in aufsteigender Reihenfolge abgelegt werden.",
+                    "Eine gewählte Karte muss in die Reihe gelegt werden, in der die Differenz zur letzten Karte am kleinsten ist.",
+                    "Wenn eine sechste Karte in eine Reihe gelegt werden müsste, muss der Spieler die gesamte Reihe aufnehmen, und die neue Karte wird die neue Startkarte."
+                ]
+            },
+            {
+                "title": "Strafpunkte und Spielende",
+                "content": "Jede Karte hat eine Zahl und Hornochsen-Symbole. Jeder Hornochse zählt als ein Strafpunkt. Am Ende gewinnt der Spieler mit den wenigsten Punkten."
+            },
+            {
+                "title": "Wichtig:",
+                "list": [
+                    "Alle Spieler wählen und legen ihre Karten gleichzeitig ab.",
+                    "Strategie ist entscheidend: Achte nicht nur auf deine eigenen Karten, sondern auch auf die anderen Spieler!"
+                ]
+            },
+            {
+                "title": "Spieldetails",
+                "info": [
+                    {
+                        "label": "Empfohlenes Alter",
+                        "value": "Ab 8 Jahren"
+                    },
+                    {
+                        "label": "Anzahl der Spieler",
+                        "value": "2-10 Spieler"
+                    },
+                    {
+                        "label": "Spieldauer",
+                        "value": "Ca. 45 Minuten"
+                    },
+                    {
+                        "label": "Schwierigkeitsgrad",
+                        "value": "Leicht zu lernen, aber strategisches Denken erforderlich"
+                    }
+                ]
+            }
+        ]
     }
 }
