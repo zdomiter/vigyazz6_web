@@ -88,7 +88,7 @@ function createStartButton() {
     // Gomb létrehozása
     const startButton = document.createElement("button");
     startButton.id = "start-game";
-    startButton.textContent = "Játék indítása";
+    startButton.textContent = "HTML: Játék indítása";
     startButton.classList.add("btn", "btn-primary", "mt-3", "mb-5", "d-block", "mx-auto");
     // Eseménykezelő hozzáadása
     startButton.addEventListener("click", () => {

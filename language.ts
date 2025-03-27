@@ -83,28 +83,78 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateElementText("player-h2", data.messages.playersTitle);
                     document.getElementById("new-player")!.setAttribute("placeholder", data.placeholders.newPlayer);             
                     updateElementText("storageInfoLabel", data.storageInfoModal.storageInfoLabel);
-                    //updateElementText("addPlayerButton", data.buttons.addPlayer);
+                    updateElementText("storageInfoBody", data.storageInfoModal.storageInfoBody, true);
+                    updateElementText("start-game", data.buttons.startGame);
                 } else if (pageId === "history") {
-                    updateElementText("historyTitle", data.messages.historyTitle);
-                    updateElementText("clearHistoryButton", data.buttons.clearHistory);
                 } else if (pageId === "rules") {
-                    updateElementText("rulesTitle", data.messages.rulesTitle);
-                    updateElementText("rulesContent", data.messages.rulesContent);
+                    loadRules(data);
                 }
 
             })
             .catch(error => console.error("Hiba a fordítás betöltésekor:", error));
     }
+    
     /**
     * 🔹 Segédfüggvény az elem szövegének beállításához
     * - Csak akkor állítja be a szöveget, ha az elem létezik, így elkerülhetők a hibák.
     */
-    function updateElementText(elementId: string, text: string) {
+    function updateElementText(elementId: string, text: string, allowHTML = false) {
         const element = document.getElementById(elementId);
         if (element) {
-            element.textContent = text;
+            if (allowHTML) {
+                element.innerHTML = text; // Csak ha szükséges!
+            } else {
+                element.textContent = text;
+            }
         }
     }
+    function loadRules(data: any) {
+        const container = document.getElementById("rules-container");
+        if (!container) return;
+    
+        container.innerHTML = ""; // Töröljük a korábbi tartalmat
+    
+        // Cím megjelenítése
+        const title = document.createElement("h1");
+        title.classList.add("text-center", "mb-4");
+        title.textContent = data.rules.title;
+        container.appendChild(title);
+    
+        // Szabályok bejárása és megjelenítése
+        data.rules.sections.forEach((section: any) => {
+            const sectionTitle = document.createElement("h2");
+            sectionTitle.classList.add("mb-3");
+            sectionTitle.textContent = section.title;
+            container.appendChild(sectionTitle);
+    
+            if (section.content) {
+                const paragraph = document.createElement("p");
+                paragraph.classList.add("mb-3");
+                paragraph.textContent = section.content;
+                container.appendChild(paragraph);
+            }
+    
+            if (section.list) {
+                const list = document.createElement("ul");
+                list.classList.add("mb-3");
+                section.list.forEach((item: string) => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = item;
+                    list.appendChild(listItem);
+                });
+                container.appendChild(list);
+            }
+    
+            if (section.info) {
+                section.info.forEach((item: any) => {
+                    const paragraph = document.createElement("p");
+                    paragraph.innerHTML = `<strong>${item.label}:</strong> ${item.value}`;
+                    container.appendChild(paragraph);
+                });
+            }
+        });
+    }
+    
 });
 
 //
