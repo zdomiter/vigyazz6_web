@@ -1,106 +1,104 @@
 {
     "titles": {
-        "game": "Take 5! – Game",
-        "players": "Take 5! – Players",
-        "history": "Take 5! – History",
-        "rules": "Take 5! – Rules"
+        "game": "Take 5 – Game",
+        "players": "Take 5 – Players",
+        "history": "Take 5 – History",
+        "rules": "Take 5 – Rules"
     },
     "nav": {
         "game": "Game",
         "players": "Players",
         "history": "History",
         "rules": "Rules",
-        "brand": "Take 5!"
+        "brand": "Take 5"
     },
     "modal": {
-        "title": "How many points did you collect this round?",
-        "playerPrompt": "Player's points:",
-        "saveButton": "Save"
+        "title": "How many points were collected this round?"
     },
-    "footer": "\u00A9 2025 Zoltan Domiter – All rights reserved.",
+    "footer": "\u00A9 2025 Domiter Zoltán – All rights reserved.",
     "buttons": {
-        "newRound": "en Új kör",
-        "startNewGame": "en Új játék indítás",
-        "savePoints": "en Pontok mentése",
-        "startGame": "en Játék indítása"
+        "newRound": "New Round",
+        "startNewGame": "Start New Game",
+        "savePoints": "Save Points",
+        "startGame": "Start Game"
     },
     "messages": {
-        "gameTitle": "en Vigyáz(z)6! pontszámoló",
+        "gameTitle": "Take 5 Scorekeeper",
         "playersTitle": "Players",
-        "gameDescription": "en Segít a körönkénti pontok rögzítésében és a játék végeredményének számításában.",
-        "minPlayersRequired": "en A játékhoz legalább 2 játékosra lesz szükség.",
-        "validNumberRequired": "en Érvényes számot adj meg!"
+        "gameDescription": "Helps record round-by-round scores and calculates the final game result.",
+        "minPlayersRequired": "The game requires at least 2 players.",
+        "goToPlayers": "Go to Players"
     },
     "errors": {
-        "invalidNumber": "en Érvényes számot adj meg!"
+        "invalidNumber": "Please enter a valid number!"
     },
     "modals": {
-        "enterPoints": "en Add meg a pontokat:",
-        "playerTurn": "en Következő játékos: "
+        "enterPoints": "Enter points:",
+        "playerTurn": "Next player: "
     },
     "placeholders": {
-        "newPlayer": "en Új név megadása"
+        "newPlayer": "Enter new name"
     },
-    "storageInfoModal": {   
-        "storageInfoLabel": "en Adatmentés a böngészőben",
-        "storageInfoBody": "en Ez az alkalmazás a böngésződet használja a játékállás mentésére. Az adatok <strong>nem kerülnek szerverre</strong>, és csak ezen az eszközön érhetők el. Ha törlöd a böngésző adatait, a mentett játékállás is elveszik."
+    "storageInfoModal": {
+        "storageInfoLabel": "Data Storage in Browser",
+        "storageInfoBody": "This application uses your browser to save the game state. The data <strong>is not stored on a server</strong> and is only accessible on this device. If you clear your browser data, the saved game state will also be lost."
     },
     "rules": {
-        "title": "en Játékszabály",
+        "title": "Rules",
         "sections": [
             {
-                "title": "A játék célja",
-                "content": "A játék során minden játékos igyekszik elkerülni, hogy túl sok büntetőpontot érő lapot kelljen felvennie. A cél az, hogy a lehető legkevesebb ökörfej legyen nálad a játék végére."
+                "title": "Objective of the Game",
+                "content": "Players try to avoid collecting too many penalty point cards. The goal is to have as few bullheads as possible by the end of the game."
             },
             {
-                "title": "A játék előkészítése",
+                "title": "Game Setup",
                 "list": [
-                    "A paklit alaposan meg kell keverni.",
-                    "Minden játékos kap 10 lapot.",
-                    "Négy lapot felfordítunk, ezek a kezdő sorokat alkotják."
+                    "Shuffle the deck thoroughly.",
+                    "Each player is dealt 10 cards.",
+                    "Four cards are placed face up to form the starting rows."
                 ]
             },
             {
-                "title": "A játék menete",
-                "content": "A játék körökből áll. Minden körben a játékosok egyszerre választanak egy lapot a kezükből, majd azokat egyszerre felfedik és a legkisebbtől kezdve a szabályok szerint elhelyezik."
+                "title": "Gameplay",
+                "content": "The game is played in rounds. In each round, players simultaneously select a card from their hand, reveal them at the same time, and place them in order from lowest to highest according to the rules."
             },
             {
-                "title": "Hogyan lehet lapot letenni?",
+                "title": "How to Play a Card?",
                 "list": [
-                    "A lapokat mindig növekvő számsorrendben kell elhelyezni.",
-                    "A kiválasztott lapot abba a sorba kell tenni, ahol a legkisebb a különbség a meglévő lap és a lehelyezett lap között.",
-                    "Ha egy sorba kerülne a hatodik lap, a játékosnak fel kell vennie az egész sort, és az új lap lesz az új kezdőkártya."
+                    "Cards must be placed in ascending numerical order.",
+                    "A selected card must be placed in the row where the difference between the last card and the new card is the smallest.",
+                    "If a sixth card would be placed in a row, the player must take the entire row, and the new card becomes the new starting card."
                 ]
             },
             {
-                "title": "Mínuszpontok és a játék vége",
-                "content": "Minden kártyán a számok mellett ökörfejek is vannak, minden ökörfej egy mínuszpontot jelent. A játék végén az nyer, akinek a legkevesebb pontja van."
+                "title": "Penalty Points and End of the Game",
+                "content": "Each card has a number and bullheads; each bullhead counts as one penalty point. The player with the fewest points at the end wins."
             },
             {
-                "title": "Fontos:",
+                "title": "Important:",
                 "list": [
-                    "A játék során mindenki egyszerre választ és helyez le lapot.",
-                    "A stratégia kulcsfontosságú: figyelj a többiekre is, ne csak a saját lapjaidra!"
+                    "Players choose and place their cards simultaneously.",
+                    "Strategy is key: pay attention to other players, not just your own cards!"
                 ]
             },
             {
-                "title": "Játékadatok",
+                "title": "Game Details",
                 "info": [
                     {
-                        "label": "Ajánlott korosztály",
-                        "value": "8 éves kortól"
+                        "label": "Recommended Age",
+                        "value": "8+ years"
                     },
                     {
-                        "label": "Játékosok száma",
-                        "value": "2-10 fő"
+                        "label": "Number of Players",
+                        "value": "2-10 players"
                     },
                     {
-                        "label": "Játékidő",
-                        "value": "Kb. 45 perc"
+                        "label": "Game Duration",
+                        "value": "Approx. 45 minutes"
                     },
                     {
-                        "label": "Nehézségi szint",
-                        "value": "Könnyen tanulható, de stratégiai gondolkodást igényel"
+                        "label": "Difficulty Level",
+                        "value": "Easy to learn but requires strategic thinking"
                     }
                 ]
             }
