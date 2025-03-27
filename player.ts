@@ -38,7 +38,7 @@ function updatePlayerList(): void {
         li.appendChild(deleteButton);
         playerList.appendChild(li);
     });
-    createStartButton();
+    toggleStartButton();
     togglePlayerForm();
 }
 
@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     updatePlayerList();
+    createStartButton();
 });
 
 function createStartButton() {
@@ -142,5 +143,15 @@ function togglePlayerForm(): void {
         form.style.display = "none"; // Elrejtés
     } else {
         form.style.display = "flex"; // Megjelenítés
+    }
+}
+function toggleStartButton(): void {
+    const startButton = document.createElement("button");
+    if (!startButton) return;
+
+    if (players.length < 2) {
+        startButton.style.display = "none"; // Elrejtés
+    } else {
+        startButton.style.display = "flex"; // Megjelenítés
     }
 }

@@ -141,11 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <a id="goToPlayers" href="player.html" class="btn btn-primary"></a>
     `;
 
-        container.before(messageDiv);
+        container.appendChild(messageDiv);
     }
 
     const modalElement = document.getElementById("pointsModal");
-    const fallbackFocusElement = document.getElementById("newRoundButton"); // Ide kerül vissza a fókusz
+    //const fallbackFocusElement = document.getElementById("newRoundButton"); // Ide kerül vissza a fókusz
 
     modalElement?.addEventListener("hidden.bs.modal", () => {
         if (document.activeElement instanceof HTMLElement) {
@@ -220,7 +220,7 @@ function checkGameOver() {
             const newButton = document.getElementById("newRoundButton") as HTMLButtonElement;
         
             // Új eseményfigyelő beállítása
-            newButton.textContent = "Új játék indítás";
+            newButton.textContent = currentLanguageData.buttons?.startNewGame;
             if (newButton) {
                 setInterval(() => {
                     newButton.classList.add("pulsing"); // Pulzálás bekapcsolása
