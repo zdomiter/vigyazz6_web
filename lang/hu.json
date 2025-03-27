@@ -19,7 +19,8 @@
     "buttons": {
         "newRound": "Új kör",
         "startNewGame": "Új játék indítás",
-        "savePoints": "Pontok mentése"
+        "savePoints": "Pontok mentése",
+        "startGame": "Játék indítása"
     },
     "messages": {
         "gameTitle": "Vigyáz(z)6! pontszámoló",
@@ -38,8 +39,69 @@
     "placeholders": {
         "newPlayer": "Új név megadása"
     },
-    "storageInfoModal": {   
-        "storageInfoLabel": "Adatmentés a böngészőben"
+    "storageInfoModal": {
+        "storageInfoLabel": "Adatmentés a böngészőben",
+        "storageInfoBody": "Ez az alkalmazás a böngésződet használja a játékállás mentésére. Az adatok <strong>nem kerülnek szerverre</strong>, és csak ezen az eszközön érhetők el. Ha törlöd a böngésző adatait, a mentett játékállás is elveszik."
+    },
+    "rules": {
+        "title": "Játékszabály",
+        "sections": [
+            {
+                "title": "A játék célja",
+                "content": "A játék során minden játékos igyekszik elkerülni, hogy túl sok büntetőpontot érő lapot kelljen felvennie. A cél az, hogy a lehető legkevesebb ökörfej legyen nálad a játék végére."
+            },
+            {
+                "title": "A játék előkészítése",
+                "list": [
+                    "A paklit alaposan meg kell keverni.",
+                    "Minden játékos kap 10 lapot.",
+                    "Négy lapot felfordítunk, ezek a kezdő sorokat alkotják."
+                ]
+            },
+            {
+                "title": "A játék menete",
+                "content": "A játék körökből áll. Minden körben a játékosok egyszerre választanak egy lapot a kezükből, majd azokat egyszerre felfedik és a legkisebbtől kezdve a szabályok szerint elhelyezik."
+            },
+            {
+                "title": "Hogyan lehet lapot letenni?",
+                "list": [
+                    "A lapokat mindig növekvő számsorrendben kell elhelyezni.",
+                    "A kiválasztott lapot abba a sorba kell tenni, ahol a legkisebb a különbség a meglévő lap és a lehelyezett lap között.",
+                    "Ha egy sorba kerülne a hatodik lap, a játékosnak fel kell vennie az egész sort, és az új lap lesz az új kezdőkártya."
+                ]
+            },
+            {
+                "title": "Mínuszpontok és a játék vége",
+                "content": "Minden kártyán a számok mellett ökörfejek is vannak, minden ökörfej egy mínuszpontot jelent. A játék végén az nyer, akinek a legkevesebb pontja van."
+            },
+            {
+                "title": "Fontos:",
+                "list": [
+                    "A játék során mindenki egyszerre választ és helyez le lapot.",
+                    "A stratégia kulcsfontosságú: figyelj a többiekre is, ne csak a saját lapjaidra!"
+                ]
+            },
+            {
+                "title": "Játékadatok",
+                "info": [
+                    {
+                        "label": "Ajánlott korosztály",
+                        "value": "8 éves kortól"
+                    },
+                    {
+                        "label": "Játékosok száma",
+                        "value": "2-10 fő"
+                    },
+                    {
+                        "label": "Játékidő",
+                        "value": "Kb. 45 perc"
+                    },
+                    {
+                        "label": "Nehézségi szint",
+                        "value": "Könnyen tanulható, de stratégiai gondolkodást igényel"
+                    }
+                ]
+            }
+        ]
     }
-
 }
