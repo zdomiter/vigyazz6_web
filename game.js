@@ -106,10 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <p id="minPlayersRequired" class="mb-3"></p>
         <a id="goToPlayers" href="player.html" class="btn btn-primary"></a>
     `;
-        container.before(messageDiv);
+        container.appendChild(messageDiv);
     }
     const modalElement = document.getElementById("pointsModal");
-    const fallbackFocusElement = document.getElementById("newRoundButton"); // Ide kerül vissza a fókusz
+    //const fallbackFocusElement = document.getElementById("newRoundButton"); // Ide kerül vissza a fókusz
     modalElement === null || modalElement === void 0 ? void 0 : modalElement.addEventListener("hidden.bs.modal", () => {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
@@ -158,6 +158,7 @@ function startNewRound() {
     updateModalForPlayer();
 }
 function checkGameOver() {
+    var _a;
     const newRoundButton = document.getElementById("newRoundButton");
     // Van-e olyan játékos, akinek 0 vagy kevesebb pontja van?
     const hasLoser = players.some(player => player.points <= 0);
@@ -173,7 +174,7 @@ function checkGameOver() {
             newRoundButton.replaceWith(newRoundButton.cloneNode(true)); // Ezzel új gomb jön létre
             const newButton = document.getElementById("newRoundButton");
             // Új eseményfigyelő beállítása
-            newButton.textContent = "Új játék indítás";
+            newButton.textContent = (_a = currentLanguageData.buttons) === null || _a === void 0 ? void 0 : _a.startNewGame;
             if (newButton) {
                 setInterval(() => {
                     newButton.classList.add("pulsing"); // Pulzálás bekapcsolása

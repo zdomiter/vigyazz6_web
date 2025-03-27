@@ -30,7 +30,7 @@ function updatePlayerList() {
         li.appendChild(deleteButton);
         playerList.appendChild(li);
     });
-    createStartButton();
+    toggleStartButton();
     togglePlayerForm();
 }
 // Játékos törlése
@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     updatePlayerList();
+    createStartButton();
 });
 function createStartButton() {
     const container = document.getElementById("button-container");
@@ -118,5 +119,16 @@ function togglePlayerForm() {
     }
     else {
         form.style.display = "flex"; // Megjelenítés
+    }
+}
+function toggleStartButton() {
+    const startButton = document.createElement("button");
+    if (!startButton)
+        return;
+    if (players.length < 2) {
+        startButton.style.display = "none"; // Elrejtés
+    }
+    else {
+        startButton.style.display = "flex"; // Megjelenítés
     }
 }
