@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(data => {
             // Az oldal címének frissítése az aktuális oldal alapján
             currentLanguageData = data;
+            document.dispatchEvent(new Event("languageLoaded"));
             const pageId = document.body.getAttribute("data-page"); // pl. home, game, players stb.
             if (pageId && data.titles[pageId]) {
                 document.title = data.titles[pageId];
@@ -62,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateElementText("goToPlayers", data.messages.goToPlayers);
                 updateElementText("enterPoints", data.modals.enterPoints);
                 updateElementText("pointsModalLabel", data.modal.title);
-                updateElementText("newRoundButton", data.buttons.newRound);
                 updateElementText("savePoints", data.buttons.savePoints);
             }
             else if (pageId === "players") {

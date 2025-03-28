@@ -4,15 +4,15 @@ function renderGameHistory() {
     const container = document.getElementById("history-container");
     if (!container)
         return;
-    container.innerHTML = ""; // Előző elemek törlése
-    const baseColor = [220, 80, 40]; // HSL: Sötétkék (hue: 220, saturation: 80%, lightness: 40%)
-    const lightnessIncrement = 30 / games.length; // Minden kártyánál növeljük a világosságot 5%-kal
+    container.innerHTML = "";
+    const baseColor = [220, 80, 40];
+    const lightnessIncrement = 30 / games.length;
     games.forEach((game, index) => {
         setTimeout(() => {
-            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 80); // Ne legyen túl világos
+            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 80);
             const card = document.createElement("div");
             card.classList.add("card", "mb-3", "w-100");
-            card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`; // HSL szín beállítása
+            card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`;
             const cardHeader = document.createElement("div");
             cardHeader.classList.add("card-header");
             const toggleButton = document.createElement("a");
@@ -81,8 +81,8 @@ function renderGameHistory() {
                         }
                     });
                 }
-            }, 0); // Biztosítja, hogy az elem már létezik a DOM-ban
-        }, index * 100); // Egyenként jelennek meg 100ms késéssel
+            }, 0);
+        }, index * 100);
     });
 }
 document.addEventListener("DOMContentLoaded", renderGameHistory);

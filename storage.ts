@@ -1,8 +1,8 @@
 import { User } from "./user.js";
 
 export interface GameResult {
-    timestamp: string; // Időbélyeg (pl. "2025-03-11 14:30:00")
-    players: { name: string; points: number; rank: number }[]; // Játékosok adatai
+    timestamp: string;
+    players: { name: string; points: number; rank: number }[];
 }
 
 export function savePlayersToLocalStorage(players: User[]): void {
@@ -17,11 +17,9 @@ export function loadPlayersFromLocalStorage(): User[] {
     return [];
 }
 export function saveGamesToLocalStorage(players: User[]): void {
-    // Betöltjük a korábbi játékokat
     const storedGames = localStorage.getItem("games");
     const games: GameResult[] = storedGames ? JSON.parse(storedGames) : [];
 
-    // Új játék létrehozása
     const newGame: GameResult = {
         timestamp: new Date().toLocaleString("hu-HU", { timeZone: "Europe/Budapest" }), 
         players: players.map(player => ({
@@ -31,10 +29,8 @@ export function saveGamesToLocalStorage(players: User[]): void {
         }))
     };
 
-    // Hozzáadjuk az új játékot
     games.unshift(newGame);
 
-    // Elmentjük a localStorage-be
     localStorage.setItem("games", JSON.stringify(games));
 }
 
