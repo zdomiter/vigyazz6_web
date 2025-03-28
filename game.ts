@@ -102,6 +102,7 @@ function updateIndexPlayerList() {
 
         }, index * 100); // Egyenként jelennek meg 100ms késéssel
     });
+    console.log("4. updateIndexPlayerList végigment, checkGameOver következik")
     checkGameOver();
 
 }
@@ -112,7 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Új kör gomb LÉTREHOZÁSA csak EGYSZER
     const newRoundButton = document.createElement("button");
     newRoundButton.id = "newRoundButton";
-    newRoundButton.textContent = "Új kör";
+    if (players.some(player => player.points <= 0)){
+        newRoundButton.textContent = currentLanguageData.buttons?.startNewGame;
+        console.log("1. Új játék gomb létrejött");
+    }else{
+        newRoundButton.textContent = currentLanguageData.buttons?.newRound;
+        console.log("1. Új kör gomb létrejött");
+    }
     newRoundButton.classList.add("btn", "btn-primary", "mb-3");
 
     if (newRoundButton) {
@@ -129,7 +136,12 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     // Gomb hozzáadása a DOM-hoz
     if (players.length >= 2) {
-        container.before(newRoundButton);
+        
+        if (!document.getElementById("newRoundButton")) {
+            container.before(newRoundButton);
+            console.log("2. Új kör hozzáadva, mert a DOM-hoz before-ral");
+        }
+        
     } else if (players.length === 0) {
         // Üzenet létrehozása és Bootstrap-stílus alkalmazása
         const messageDiv = document.createElement("div");
@@ -152,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.activeElement.blur();
         }
     });
+    console.log("3. updateIndexPlayerList hívás először");
     updateIndexPlayerList();
 });
 function startNewRound() {
@@ -220,7 +233,13 @@ function checkGameOver() {
             const newButton = document.getElementById("newRoundButton") as HTMLButtonElement;
         
             // Új eseményfigyelő beállítása
+            console.log("Van vesztes, ezért Új játék gomb létrehozása");
             newButton.textContent = currentLanguageData.buttons?.startNewGame;
+            
+            console.log("NewButton: "+newButton.outerText);
+            console.log("newRoundButton: "+newRoundButton.outerText);
+            console.log(newButton);
+            
             if (newButton) {
                 setInterval(() => {
                     newButton.classList.add("pulsing"); // Pulzálás bekapcsolása
@@ -237,6 +256,7 @@ function checkGameOver() {
     } else {
         // Ha nincs vesztes, az "Új kör" gomb maradjon látható
         if (newRoundButton) {
+            console.log("Nincs vesztes, marad az Újkörgomb");
             newRoundButton.style.display = "block";
         }
     }
