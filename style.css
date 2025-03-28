@@ -12,11 +12,11 @@ body::before {
     width: 120%;
     height: 120%;
     background-image: url('bg-vigyazz6_50x50.jpg');
-    background-size: 50px 50px; /* Mivel ismétlődik */
+    background-size: 50px 50px;
     background-repeat: repeat;
     background-position: center;
-    transform: rotate(-5deg); /* Itt lehet állítani a forgatás szögét */
-    z-index: -1; /* Háttérbe küldi */
+    transform: rotate(-5deg);
+    z-index: -1;
 }
 html, body {
     height: 100%;
@@ -25,8 +25,8 @@ html, body {
 }
 
 #main-content {
-    flex: 1; /* Kitölti a maradék helyet, hogy a footer leérjen az aljára */
-    padding-bottom: 30px; /* Footer magasságának megfelelő alsó térköz */
+    flex: 1;
+    padding-bottom: 30px;
 }
 
 footer {
@@ -36,13 +36,13 @@ footer {
     background-color: #304ea4;
     text-align: center;
     padding: 4px;
-    font-size: 0.75rem; /* 75%-ra csökkentett betűméret */
-    color: rgb(200, 200, 255); /* Kevésbé rikító fehér */
+    font-size: 0.75rem;
+    color: rgb(200, 200, 255);
 }
 
 
 .rules-container {
-    background: rgba(255, 255, 255, 0.85); /* Fehér, 70%-os áttetszőség */
+    background: rgba(255, 255, 255, 0.85);
     margin: 20px; 
     padding: 10px;
     border-radius: 10px; 
@@ -128,7 +128,7 @@ footer {
 
 .separator {
     height: 1px;
-    background-color: #ccc; /* Halvány szürke vonal */
+    background-color: #ccc;
     margin: 8px 0;
 }
 
@@ -138,11 +138,11 @@ footer {
 
 body.modal-open {
     overflow: hidden;
-    padding-right: 17px; /* Görgetősáv eltolása, ha szükséges */
+    padding-right: 17px;
 }
 
 #playerPrompt {
-    font-size: 1.5rem; /* 1.5x nagyobb betűméret, állítható */
+    font-size: 1.5rem;
 }
 
 .player-name {

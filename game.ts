@@ -5,13 +5,12 @@ import { currentLanguageData } from "./language.js";
 declare var bootstrap: any;
 
 interface GameResult {
-    timestamp: string; // Időbélyeg (pl. "2025-03-11 14:30:00")
-    players: { name: string; points: number; rank: number }[]; // Játékosok adatai
+    timestamp: string;
+    players: { name: string; points: number; rank: number }[];
 }
 
 let players: User[] = loadPlayersFromLocalStorage();
 
-// Játékos állás frissítése
 function assignPlayerRanks(players: any[]) {
 
     players.sort((a: { points: number; }, b: { points: number; }) => b.points - a.points);
@@ -28,7 +27,6 @@ function assignPlayerRanks(players: any[]) {
     });
 }
 
-
 function updateIndexPlayerList() {
     const container = document.getElementById("players-container");
     if (!container) return;
@@ -36,19 +34,16 @@ function updateIndexPlayerList() {
 
     assignPlayerRanks(players);
 
-    const baseColor = [220, 80, 40]; // HSL: Sötétkék (hue: 220, saturation: 80%, lightness: 40%)
-    const lightnessIncrement = 20 / players.length; // Minden kártyánál növeljük a világosságot 5%-kal
-
+    const baseColor = [220, 80, 40];
+    const lightnessIncrement = 20 / players.length;
 
     players.forEach((player, index) => {
         setTimeout(() => {
-
-            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 60); // Ne legyen túl világos
-
+            const lightness = Math.min(baseColor[2] + index * lightnessIncrement, 60); 
 
             const card = document.createElement("div");
             card.classList.add("card", "mb-3", "w-100", "popIn-animation");
-            card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`; // HSL szín beállítása
+            card.style.backgroundColor = `hsl(${baseColor[0]}, ${baseColor[1]}%, ${lightness}%)`;
 
             if (player.rank === 1) {
                 card.id = "win";
@@ -60,7 +55,6 @@ function updateIndexPlayerList() {
             const row = document.createElement("div");
             row.classList.add("row", "align-items-center");
 
-            // Helyezés fehér négyzetben
             const rankDiv = document.createElement("div");
             rankDiv.classList.add("col-2", "d-flex", "text-start");
             rankDiv.innerHTML = `<div class="rank-box">${player.rank}</div>`;
@@ -78,8 +72,6 @@ function updateIndexPlayerList() {
             row.appendChild(pointsDiv);
             cardBody.appendChild(row);
 
-
-            // Korábbi körök pontjai badge-ekben
             if (player.previousRounds && player.previousRounds.length > 0) {
                 const separator = document.createElement("div");
                 separator.classList.add("separator");
@@ -100,73 +92,55 @@ function updateIndexPlayerList() {
             card.appendChild(cardBody);
             container.appendChild(card);
 
-        }, index * 100); // Egyenként jelennek meg 100ms késéssel
+        }, index * 100);
     });
-    console.log("4. updateIndexPlayerList végigment, checkGameOver következik")
     checkGameOver();
 
 }
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("languageLoaded", () => {
+    initGameUI();
+});
+function initGameUI() {
     const container = document.getElementById("players-container");
     if (!container) return;
 
-    // Új kör gomb LÉTREHOZÁSA csak EGYSZER
-    const newRoundButton = document.createElement("button");
-    newRoundButton.id = "newRoundButton";
-    if (players.some(player => player.points <= 0)){
-        newRoundButton.textContent = currentLanguageData.buttons?.startNewGame;
-        console.log("1. Új játék gomb létrejött");
-    }else{
-        newRoundButton.textContent = currentLanguageData.buttons?.newRound;
-        console.log("1. Új kör gomb létrejött");
-    }
-    newRoundButton.classList.add("btn", "btn-primary", "mb-3");
+    let newRoundButton = document.getElementById("newRoundButton") as HTMLButtonElement;
 
-    if (newRoundButton) {
-        setInterval(() => {
-            newRoundButton.classList.add("pulsing"); // Pulzálás bekapcsolása
-            setTimeout(() => {
-                newRoundButton.classList.remove("pulsing"); // 1 másodperc múlva kikapcsolja
-            }, 500);
-        }, 5000); // 3 másodpercenként indul
-    }
-    newRoundButton.onclick = () => {
-        closeBootstrapMenuIfOpen(); // Menü bezárása
-        startNewRound();
-    };
-    // Gomb hozzáadása a DOM-hoz
-    if (players.length >= 2) {
-        
-        if (!document.getElementById("newRoundButton")) {
+    if (!newRoundButton) {
+        newRoundButton = document.createElement("button");
+        newRoundButton.id = "newRoundButton";
+        newRoundButton.classList.add("btn", "btn-primary", "mb-3");
+
+        if (players.length >= 2) {
             container.before(newRoundButton);
-            console.log("2. Új kör hozzáadva, mert a DOM-hoz before-ral");
+        }
+    }
+    if (players.length < 2) {
+        let messageDiv = document.querySelector(".alert.alert-warning");
+        if (!messageDiv) {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
+            messageDiv.innerHTML = `
+            <h1 id="gameTitle" class="mb-3"></h1>
+            <h2 id="gameDescription" class="mb-3"></h2>
+            <p id="minPlayersRequired" class="mb-3"></p>
+            <a id="goToPlayers" href="player.html" class="btn btn-primary"></a>
+            `;
+            container.parentElement?.insertBefore(messageDiv, container);
         }
         
-    } else if (players.length === 0) {
-        // Üzenet létrehozása és Bootstrap-stílus alkalmazása
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("alert", "alert-warning", "text-center", "mt-3", "p-4", "rounded");
-        messageDiv.innerHTML = `
-        <h1 id="gameTitle" class="mb-3"></h1>
-        <h2 id="gameDescription" class="mb-3"></h2>
-        <p id="minPlayersRequired" class="mb-3"></p>
-        <a id="goToPlayers" href="player.html" class="btn btn-primary"></a>
-    `;
-
-        container.appendChild(messageDiv);
     }
 
     const modalElement = document.getElementById("pointsModal");
-    //const fallbackFocusElement = document.getElementById("newRoundButton"); // Ide kerül vissza a fókusz
 
     modalElement?.addEventListener("hidden.bs.modal", () => {
         if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
         }
     });
-    console.log("3. updateIndexPlayerList hívás először");
     updateIndexPlayerList();
-});
+}
+
 function startNewRound() {
     let currentIndex = 0;
     const playerPrompt = document.getElementById("playerPrompt")!;
@@ -177,16 +151,14 @@ function startNewRound() {
 
     function updateModalForPlayer() {
         if (currentIndex >= players.length) {
-            // Ha minden játékos rögzítve van, zárjuk be a modált és mentsünk
             savePlayersToLocalStorage(players);
             updateIndexPlayerList();
             modal.hide();
             return;
         }
 
-        // Frissítjük a modál tartalmát az aktuális játékos nevével
         playerPrompt.innerHTML = `${players[currentIndex].name}`;
-        pointsInput.value = ""; // Alapértelmezett érték törlése
+        pointsInput.value = "";
         pointsInput.focus();
     }
 
@@ -200,86 +172,84 @@ function startNewRound() {
         if (!isNaN(pointsToDeduct) && pointsToDeduct >= 0 && pointsToDeduct <= 171) {
             players[currentIndex].deductPoints(pointsToDeduct);
             currentIndex++;
-            updateModalForPlayer(); // Következő játékos adatainak betöltése
+            updateModalForPlayer(); 
         } else {
             const alertMessage = currentLanguageData.errors?.invalidNumber
-            alert(alertMessage); // Hibakezelés
+            alert(alertMessage); 
         }
     };
-  
 
-    // Modál egyszeri megnyitása
     modal.show();
     updateModalForPlayer();
 }
 
 function checkGameOver() {
-    const newRoundButton = document.getElementById("newRoundButton") as HTMLButtonElement;
+    updateNewRoundButton();
 
-    // Van-e olyan játékos, akinek 0 vagy kevesebb pontja van?
     const hasLoser = players.some(player => player.points <= 0);
 
     if (hasLoser) {
-        // Kiemeljük a győztest (aki "win" ID-t kapott)
         if (!localStorage.getItem("gameSaved")) {
-            saveGamesToLocalStorage(players); // Eredmény mentése
-            localStorage.setItem("gameSaved", "true"); // Mentés megtörtént
+            saveGamesToLocalStorage(players); 
+            localStorage.setItem("gameSaved", "true"); 
         }
-
-        // Az "Új kör" gomb átalakítása "Játék indítás"-ra
-        if (newRoundButton) {    
-            // Régi eseményfigyelő eltávolítása
-            newRoundButton.replaceWith(newRoundButton.cloneNode(true)); // Ezzel új gomb jön létre
-            const newButton = document.getElementById("newRoundButton") as HTMLButtonElement;
-        
-            // Új eseményfigyelő beállítása
-            console.log("Van vesztes, ezért Új játék gomb létrehozása");
-            newButton.textContent = currentLanguageData.buttons?.startNewGame;
-            
-            console.log("NewButton: "+newButton.outerText);
-            console.log("newRoundButton: "+newRoundButton.outerText);
-            console.log(newButton);
-            
-            if (newButton) {
-                setInterval(() => {
-                    newButton.classList.add("pulsing"); // Pulzálás bekapcsolása
-                    setTimeout(() => {
-                        newButton.classList.remove("pulsing"); // 1 másodperc múlva kikapcsolja
-                    }, 1000);
-                }, 5000); // 3 másodpercenként indul
-            }
-            newButton.onclick = () => {
-                initializeGame();
-                location.reload(); // Oldal újratöltése
-            };
-        }
-    } else {
-        // Ha nincs vesztes, az "Új kör" gomb maradjon látható
-        if (newRoundButton) {
-            console.log("Nincs vesztes, marad az Újkörgomb");
-            newRoundButton.style.display = "block";
-        }
-    }
-    if (hasLoser) {
-        // Késleltetés után futtatjuk a győztes kiemelését
         setTimeout(() => {
             highlightWinner();
-        }, players.length * 100 + 50); // 50ms biztonsági ráhagyás
+        }, players.length * 100 + 50);
     }
 }
+function updateNewRoundButton() {
+    const newRoundButton = document.getElementById("newRoundButton") as HTMLButtonElement;
+    if (!newRoundButton) return;
+
+    if (!currentLanguageData?.buttons) {
+        console.warn("Nyelvi adatok még nem elérhetők, újrapróbálkozás...");
+        setTimeout(updateNewRoundButton, 100); 
+        return;
+    }
+
+    const hasLoser = players.some(player => player.points <= 0);
+
+    if (hasLoser) {
+        newRoundButton.textContent = currentLanguageData.buttons?.startNewGame;
+        newRoundButton.onclick = () => {
+            initializeGame();
+            location.reload();
+        };
+        setInterval(() => {
+            newRoundButton.classList.add("pulsing"); 
+            setTimeout(() => {
+                newRoundButton.classList.remove("pulsing");
+            }, 1000);
+        }, 5000);
+    } else {
+        newRoundButton.textContent = currentLanguageData.buttons?.newRound;
+        newRoundButton.onclick = () => {
+            closeBootstrapMenuIfOpen();
+            startNewRound();
+        };
+
+        setInterval(() => {
+            newRoundButton.classList.add("pulsing"); 
+            setTimeout(() => {
+                newRoundButton.classList.remove("pulsing"); 
+            }, 500);
+        }, 3000); 
+
+    }
+}
+
 function highlightWinner() {
-    // Keresd meg az összes győztes kártyát (akik a "win" ID-t kapták)
     const winners = document.querySelectorAll("#win");
 
     if (winners.length === 0) return;
 
-    // Késleltetés, hogy minden kártya előbb megjelenjen
     winners.forEach(winner => {
 
         setTimeout(() => {
             winner.classList.remove("popIn-animation");
             winner.classList.add("popEffect-animation", "text-white", "border-danger", "bg-danger");
-        }, 500); // Biztosítjuk, hogy a kártyák előbb megjelenjenek "border-danger", "bg-danger" kivéve
+        }, 500);
 
     });
 }

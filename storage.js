@@ -10,10 +10,8 @@ export function loadPlayersFromLocalStorage() {
     return [];
 }
 export function saveGamesToLocalStorage(players) {
-    // Betöltjük a korábbi játékokat
     const storedGames = localStorage.getItem("games");
     const games = storedGames ? JSON.parse(storedGames) : [];
-    // Új játék létrehozása
     const newGame = {
         timestamp: new Date().toLocaleString("hu-HU", { timeZone: "Europe/Budapest" }),
         players: players.map(player => ({
@@ -22,9 +20,7 @@ export function saveGamesToLocalStorage(players) {
             rank: player.rank
         }))
     };
-    // Hozzáadjuk az új játékot
     games.unshift(newGame);
-    // Elmentjük a localStorage-be
     localStorage.setItem("games", JSON.stringify(games));
 }
 export function getGamesFromLocalStorage() {
