@@ -15,7 +15,7 @@
     "modal": {
         "title": "How many points were collected this round?"
     },
-    "footer": "\u00A9 2025 Domiter Zoltán – All rights reserved.",
+    "footer": "\u00A9 2025 Zoltan Domiter – All rights reserved.",
     "buttons": {
         "newRound": "New Round",
         "startNewGame": "Start New Game",
@@ -42,6 +42,10 @@
     "storageInfoModal": {
         "storageInfoLabel": "Data Storage in Browser",
         "storageInfoBody": "This application uses your browser to save the game state. The data <strong>is not stored on a server</strong> and is only accessible on this device. If you clear your browser data, the saved game state will also be lost."
+    },
+    "inGamePlayerInfoModal": {
+        "inGamePlayerInfoLabel": "Attention!",
+        "inGamePlayerInfoBody": "The game is still in progress! If you modify the players, the game will restart!"
     },
     "rules": {
         "title": "Rules",
@@ -72,7 +76,7 @@
             },
             {
                 "title": "Penalty Points and End of the Game",
-                "content": "Each card has a number and bullheads; each bullhead counts as one penalty point. The player with the fewest points at the end wins."
+                "content": "Each card has both numbers and bull heads, and each bull head represents a minus point. At the end of the game, the player with the most points wins."
             },
             {
                 "title": "Important:",

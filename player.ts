@@ -15,7 +15,7 @@ function updatePlayerList(): void {
 
         const icon = document.createElement("i");
         icon.classList.add("bi", "bi-person", "me-2");
-       
+
         const nameSpan = document.createElement("span");
         nameSpan.textContent = player.name;
 
@@ -65,13 +65,29 @@ function addPlayer(name: string) {
 document.addEventListener("DOMContentLoaded", () => {
     let modalElement = document.getElementById("storageInfoModal");
 
-    if (modalElement) { 
+    if (modalElement) {
         if (!localStorage.getItem("storageNoticeAccepted")) {
             let modal = new bootstrap.Modal(modalElement);
             modal.show();
 
             modalElement.addEventListener("hidden.bs.modal", function () {
                 localStorage.setItem("storageNoticeAccepted", "true");
+            });
+        }
+    }
+    modalElement = document.getElementById("inGamePlayerInfoModal");
+
+    if (modalElement) {
+        const lastPlayer = players[players.length - 1]; // Az utolsó játékos
+        const gameSaved = localStorage.getItem("gameSaved") === "true";
+        const noticeAccepted = localStorage.getItem("inGamePlayerNoticeAccepted") === "true";
+
+        if (lastPlayer && lastPlayer.points !== 66 && !gameSaved && !noticeAccepted) {
+            let modal = new bootstrap.Modal(modalElement);
+            modal.show();
+
+            modalElement.addEventListener("hidden.bs.modal", function () {
+                localStorage.setItem("inGamePlayerNoticeAccepted", "true");
             });
         }
     }
@@ -87,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     createStartButton();
     updatePlayerList();
-    
+
 });
 
 function createStartButton() {
@@ -112,11 +128,12 @@ function createStartButton() {
 
 export function initializeGame() {
     localStorage.removeItem("gameSaved");
-        players.forEach(player => {
-            player.points = 66;
-            player.previousRounds = [];
-        });
-        savePlayersToLocalStorage(players);
+    localStorage.removeItem("inGamePlayerNoticeAccepted");
+    players.forEach(player => {
+        player.points = 66;
+        player.previousRounds = [];
+    });
+    savePlayersToLocalStorage(players);
 }
 
 function togglePlayerForm(): void {

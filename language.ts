@@ -84,6 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById("new-player")!.setAttribute("placeholder", data.placeholders.newPlayer);             
                     updateElementText("storageInfoLabel", data.storageInfoModal.storageInfoLabel);
                     updateElementText("storageInfoBody", data.storageInfoModal.storageInfoBody, true);
+                    updateElementText("inGamePlayerInfoLabel", data.inGamePlayerInfoModal.inGamePlayerInfoLabel);
+                    updateElementText("inGamePlayerInfoBody", data.inGamePlayerInfoModal.inGamePlayerInfoBody);
                     updateElementText("start-game", data.buttons.startGame);
                 } else if (pageId === "history") {
                 } else if (pageId === "rules") {
