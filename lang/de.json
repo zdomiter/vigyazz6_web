@@ -43,6 +43,10 @@
         "storageInfoLabel": "Datenspeicherung im Browser",
         "storageInfoBody": "Diese Anwendung speichert den Spielstand im Browser. Die Daten <strong>werden nicht auf einem Server gespeichert</strong> und sind nur auf diesem Gerät verfügbar. Wenn du deine Browserdaten löschst, wird auch der gespeicherte Spielstand gelöscht."
     },
+    "inGamePlayerInfoModal": {
+        "inGamePlayerInfoLabel": "Achtung!",
+        "inGamePlayerInfoBody": "Das Spiel läuft noch! Wenn du die Spieler änderst, wird das Spiel neu gestartet!"
+    },
     "rules": {
         "title": "Spielregeln",
         "sections": [
@@ -72,7 +76,7 @@
             },
             {
                 "title": "Strafpunkte und Spielende",
-                "content": "Jede Karte hat eine Zahl und Hornochsen-Symbole. Jeder Hornochse zählt als ein Strafpunkt. Am Ende gewinnt der Spieler mit den wenigsten Punkten."
+                "content": "Jede Karte hat sowohl Zahlen als auch Stierköpfe, und jeder Stierkopf bedeutet einen Minuspunkt. Am Ende des Spiels gewinnt der Spieler mit den meisten Punkten."
             },
             {
                 "title": "Wichtig:",

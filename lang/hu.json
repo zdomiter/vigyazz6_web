@@ -43,6 +43,10 @@
         "storageInfoLabel": "Adatmentés a böngészőben",
         "storageInfoBody": "Ez az alkalmazás a böngésződet használja a játékállás mentésére. Az adatok <strong>nem kerülnek szerverre</strong>, és csak ezen az eszközön érhetők el. Ha törlöd a böngésző adatait, a mentett játékállás is elveszik."
     },
+    "inGamePlayerInfoModal": {
+        "inGamePlayerInfoLabel": "Figyelem!",
+        "inGamePlayerInfoBody": "A játék még tart! Ha módosítod a játékosokat, a játék újraindul!"
+    },
     "rules": {
         "title": "Játékszabály",
         "sections": [
@@ -72,7 +76,7 @@
             },
             {
                 "title": "Mínuszpontok és a játék vége",
-                "content": "Minden kártyán a számok mellett ökörfejek is vannak, minden ökörfej egy mínuszpontot jelent. A játék végén az nyer, akinek a legkevesebb pontja van."
+                "content": "Minden kártyán a számok mellett ökörfejek is vannak, minden ökörfej egy mínuszpontot jelent. A játék végén az nyer, akinek a legtöbb pontja van."
             },
             {
                 "title": "Fontos:",

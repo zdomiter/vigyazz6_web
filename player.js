@@ -57,6 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+    modalElement = document.getElementById("inGamePlayerInfoModal");
+    if (modalElement) {
+        const lastPlayer = players[players.length - 1]; // Az utolsó játékos
+        const gameSaved = localStorage.getItem("gameSaved") === "true";
+        const noticeAccepted = localStorage.getItem("inGamePlayerNoticeAccepted") === "true";
+        if (lastPlayer && lastPlayer.points !== 66 && !gameSaved && !noticeAccepted) {
+            let modal = new bootstrap.Modal(modalElement);
+            modal.show();
+            modalElement.addEventListener("hidden.bs.modal", function () {
+                localStorage.setItem("inGamePlayerNoticeAccepted", "true");
+            });
+        }
+    }
     const form = document.getElementById("player-form");
     form === null || form === void 0 ? void 0 : form.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -87,6 +100,7 @@ function createStartButton() {
 }
 export function initializeGame() {
     localStorage.removeItem("gameSaved");
+    localStorage.removeItem("inGamePlayerNoticeAccepted");
     players.forEach(player => {
         player.points = 66;
         player.previousRounds = [];
